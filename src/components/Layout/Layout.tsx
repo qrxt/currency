@@ -16,7 +16,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       "sidebar header"
       "sidebar main"
       "sidebar main";
-    grid-template-rows: 70px 1fr 1fr;
+    grid-template-rows: 90px 1fr 1fr;
     grid-template-columns: 170px 1fr;
   `;
 
