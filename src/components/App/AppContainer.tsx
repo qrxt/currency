@@ -8,12 +8,17 @@ import { setupStore } from "@redux/store";
 function AppContainer() {
   const store = setupStore();
 
+  const config = {
+    initialColorMode: "dark",
+    useSystemColorMode: false,
+  };
+
   const theme = extendTheme({
+    config,
     styles: {
       global: {
         "html, body, #root": {
           height: "100%",
-          backgroundColor: "#f7f5f5",
         },
       },
     },
