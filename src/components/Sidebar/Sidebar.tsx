@@ -17,6 +17,7 @@ import { IconType } from "react-icons/lib";
 import routes from "lib/routes";
 import { map } from "lodash";
 import { useLocation, Link as RouterLink } from "react-router-dom";
+import { motion, AnimateSharedLayout } from "framer-motion";
 
 interface NavItemProps {
   text: string;
@@ -29,32 +30,38 @@ function NavItem(props: NavItemProps) {
   const { text, icon, isCurrent, to } = props;
   const inactiveIconColor = useColorModeValue("black", "white");
 
-  const activeLinkStyles = css`
-    &::before {
-      content: "";
-      display: block;
-      height: 100%;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 3px;
-      background: #805ad5;
-    }
-  `;
-
   return (
-    <ListItem p={3} css={isCurrent ? activeLinkStyles : ""} position="relative">
-      <Flex alignItems="center">
+    <ListItem p={3} position="relative">
+      <Flex
+        alignItems="center"
+        as={motion.div}
+        // whileHover={{ scale: 1.05 }}
+        // whileTap={{ scale: 0.95 }}
+      >
         <ListIcon
           as={icon}
           color={isCurrent ? "purple.500" : inactiveIconColor}
         />
         <Link as={RouterLink} to={to}>
+          {isCurrent && <ActiveLine />}
           <Text fontWeight={isCurrent ? "medium" : "normal"}>{text}</Text>
         </Link>
       </Flex>
     </ListItem>
   );
+}
+
+function ActiveLine() {
+  const activeLineStyles = css`
+    height: 100%;
+    width: 3px;
+    right: 0;
+    top: 0;
+    position: absolute;
+    background: #805ad5;
+  `;
+
+  return <motion.div layoutId="activeItem" css={activeLineStyles}></motion.div>;
 }
 
 function Sidebar() {
@@ -72,21 +79,23 @@ function Sidebar() {
       </Box>
       <Divider mb="16" />
 
-      <Box>
+      <Box as={motion.div} layout>
         <VStack as="nav">
-          <List w="100%">
-            {map(routes, (route) => {
-              const isCurrent = pathname === route.url;
+          <List w="100%" position="relative">
+            <AnimateSharedLayout>
+              {map(routes, (route) => {
+                const isCurrent = pathname === route.url;
 
-              return (
-                <NavItem
-                  to={route.url}
-                  text={route.name}
-                  icon={route.icon}
-                  isCurrent={isCurrent}
-                />
-              );
-            })}
+                return (
+                  <NavItem
+                    to={route.url}
+                    text={route.name}
+                    icon={route.icon}
+                    isCurrent={isCurrent}
+                  />
+                );
+              })}
+            </AnimateSharedLayout>
           </List>
         </VStack>
       </Box>
