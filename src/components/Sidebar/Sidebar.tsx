@@ -32,12 +32,7 @@ function NavItem(props: NavItemProps) {
 
   return (
     <ListItem p={3} position="relative">
-      <Flex
-        alignItems="center"
-        as={motion.div}
-        // whileHover={{ scale: 1.05 }}
-        // whileTap={{ scale: 0.95 }}
-      >
+      <Flex alignItems="center" as={motion.div}>
         <ListIcon
           as={icon}
           color={isCurrent ? "purple.500" : inactiveIconColor}
@@ -88,6 +83,7 @@ function Sidebar() {
 
                 return (
                   <NavItem
+                    key={route.name}
                     to={route.url}
                     text={route.name}
                     icon={route.icon}
