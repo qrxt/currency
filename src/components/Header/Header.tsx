@@ -13,21 +13,11 @@ import {
 import { css } from "@emotion/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-
-interface Route {
-  breadcrumb: string;
-  heading: string;
-}
-
-const routes: Record<string, Route> = {
-  "/": { breadcrumb: "Monitor", heading: "Exchange Rates" },
-  "/settings": { breadcrumb: "Settings", heading: "Application Settings" },
-  "/converter": { breadcrumb: "Converter", heading: "Currency converter" },
-};
+import routes from "lib/routes";
 
 function Header() {
   const { pathname } = useLocation();
-  const { breadcrumb, heading } = routes[pathname];
+  const { name, heading } = routes[pathname];
 
   const bg = useColorModeValue("blackAlpha.50", "whiteAlpha.50");
   const { colorMode, toggleColorMode } = useColorMode();
@@ -43,7 +33,6 @@ function Header() {
       <Flex h="100%" alignItems="center" px="6" justifyContent="space-between">
         <Box>
           <Breadcrumb fontWeight="medium" fontSize="xs">
-            {/* TODO: actual links */}
             <BreadcrumbItem>
               <BreadcrumbLink as={RouterLink} to="/">
                 Pages
@@ -52,13 +41,14 @@ function Header() {
 
             <BreadcrumbItem isCurrentPage>
               <BreadcrumbLink as={RouterLink} to={pathname}>
-                {breadcrumb}
+                {name}
               </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
 
           <Heading as="h1">{heading}</Heading>
         </Box>
+
         <IconButton
           onClick={toggleColorMode}
           aria-label={colorModeMessage}

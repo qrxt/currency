@@ -9,7 +9,7 @@ const layoutWrapperStyles = css`
 
 function Page({ children }: { children: React.ReactNode }) {
   const bgGradient = useColorModeValue(
-    "linear(to-br, rgb(133,139,255), #441AFF)",
+    "linear(to-br, purple.200, purple.800)",
     "blackAlpha.600"
   );
 

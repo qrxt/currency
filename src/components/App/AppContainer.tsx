@@ -4,7 +4,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { setupStore } from "@redux/store";
-import theme from "./theme";
+import theme from "lib/theme";
 
 function AppContainer() {
   const store = setupStore();
