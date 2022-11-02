@@ -11,11 +11,13 @@ import {
   Heading,
   Text,
   Tooltip,
+  Hide,
 } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import routes from "lib/routes";
+import Section from "components/Section";
 
 function Header() {
   const { pathname } = useLocation();
@@ -31,28 +33,29 @@ function Header() {
   const colorModeIcon = colorMode === "light" ? <MoonIcon /> : <SunIcon />;
 
   const basicCurrencyColor = useColorModeValue("black", "white");
-  const controlsBg = useColorModeValue("white", "whiteAlpha.200");
 
   return (
     <Box as="header" css={headerStyles} bg={bg}>
       <Flex h="100%" alignItems="center" px="6" justifyContent="space-between">
         <Box>
-          <Breadcrumb fontWeight="medium" fontSize="xs">
-            <BreadcrumbItem>
-              <BreadcrumbLink as={RouterLink} to="/">
-                Pages
-              </BreadcrumbLink>
-            </BreadcrumbItem>
+          <Hide below="md">
+            <Breadcrumb fontWeight="medium" fontSize="xs">
+              <BreadcrumbItem>
+                <BreadcrumbLink as={RouterLink} to="/">
+                  Pages
+                </BreadcrumbLink>
+              </BreadcrumbItem>
 
-            <BreadcrumbItem isCurrentPage>
-              <span>{name}</span>
-            </BreadcrumbItem>
-          </Breadcrumb>
+              <BreadcrumbItem isCurrentPage>
+                <span>{name}</span>
+              </BreadcrumbItem>
+            </Breadcrumb>
+          </Hide>
 
           <Heading as="h1">{heading}</Heading>
         </Box>
 
-        <Box py={3} px={6} borderRadius="xl" boxShadow="md" bg={controlsBg}>
+        <Section>
           <Flex alignItems="center">
             <Box mr={6}>
               <Tooltip label="Basic currency" placement="auto-end">
@@ -69,7 +72,7 @@ function Header() {
               variant="outline"
             />
           </Flex>
-        </Box>
+        </Section>
       </Flex>
     </Box>
   );

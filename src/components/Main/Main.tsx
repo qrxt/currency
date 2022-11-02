@@ -9,7 +9,7 @@ function Main({ children }: { children: React.ReactNode }) {
   `;
 
   return (
-    <Box as="main" css={mainStyles} bg={bg}>
+    <Box as="main" css={mainStyles} bg={bg} p={6}>
       {children}
     </Box>
   );

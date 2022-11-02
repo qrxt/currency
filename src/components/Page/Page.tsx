@@ -4,7 +4,7 @@ import Layout from "components/Layout";
 import React from "react";
 
 const layoutWrapperStyles = css`
-  height: 100%;
+  min-height: 100%;
 `;
 
 function Page({ children }: { children: React.ReactNode }) {
