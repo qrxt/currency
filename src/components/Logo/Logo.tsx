@@ -3,7 +3,6 @@ import React from "react";
 
 function Logo() {
   const logoFill = useColorModeValue("black", "white");
-  const alt = "Product logo";
 
   // return <Image src={logoSrc} alt={alt} boxSize={50} title={alt} />;
 

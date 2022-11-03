@@ -18,8 +18,28 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import routes from "lib/routes";
 import Section from "components/Section";
+import { useCookies } from "react-cookie";
+import { motion } from "framer-motion";
+
+const variants = {
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      ease: "easeOut",
+      duration: 0.3,
+    },
+  },
+  hide: {
+    y: -20,
+    opacity: 0,
+  },
+};
 
 function Header() {
+  const [baseCurrencyCookie] = useCookies(["base-currency"]);
+  const baseCurency = baseCurrencyCookie["base-currency"];
+
   const { pathname } = useLocation();
   const { name, heading } = routes[pathname];
 
@@ -59,9 +79,17 @@ function Header() {
           <Flex alignItems="center">
             <Box mr={6}>
               <Tooltip label="Basic currency" placement="auto-end">
-                {/* TODO: set actual basic currency */}
-                <Text fontWeight="medium" color={basicCurrencyColor}>
-                  USD
+                <Text
+                  fontWeight="medium"
+                  color={basicCurrencyColor}
+                  textTransform="uppercase"
+                  as={motion.p}
+                  animate={"show"}
+                  initial="hide"
+                  variants={variants}
+                  key={baseCurency}
+                >
+                  {baseCurency}
                 </Text>
               </Tooltip>
             </Box>

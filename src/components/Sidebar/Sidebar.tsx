@@ -17,7 +17,7 @@ import { IconType } from "react-icons/lib";
 import routes from "lib/routes";
 import { map } from "lodash";
 import { useLocation, Link as RouterLink } from "react-router-dom";
-import { motion, AnimateSharedLayout } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface NavItemProps {
   text: string;
@@ -77,21 +77,19 @@ function Sidebar() {
       <Box as={motion.div} layout>
         <VStack as="nav">
           <List w="100%" position="relative">
-            <AnimateSharedLayout>
-              {map(routes, (route) => {
-                const isCurrent = pathname === route.url;
+            {map(routes, (route) => {
+              const isCurrent = pathname === route.url;
 
-                return (
-                  <NavItem
-                    key={route.name}
-                    to={route.url}
-                    text={route.name}
-                    icon={route.icon}
-                    isCurrent={isCurrent}
-                  />
-                );
-              })}
-            </AnimateSharedLayout>
+              return (
+                <NavItem
+                  key={route.name}
+                  to={route.url}
+                  text={route.name}
+                  icon={route.icon}
+                  isCurrent={isCurrent}
+                />
+              );
+            })}
           </List>
         </VStack>
       </Box>

@@ -1,7 +1,6 @@
 import { ColorMode, useColorMode } from "@chakra-ui/react";
 import { ApexOptions } from "apexcharts";
 import { keys, values } from "lodash";
-import { useEffect, useState } from "react";
 
 const getOptions = (dates: string[], colorMode: ColorMode): ApexOptions => ({
   theme: {

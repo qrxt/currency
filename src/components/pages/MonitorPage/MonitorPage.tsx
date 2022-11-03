@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Heading,
-  SimpleGrid,
-  Text,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import Section from "components/Section";
 import Chart from "react-apexcharts";
 import { useChart } from "./hooks";
