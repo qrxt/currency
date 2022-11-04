@@ -21,7 +21,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   `;
 
   return (
-    <Container maxW={"5xl"}>
+    <Container maxW={"5xl"} py={3}>
       {/* TODO: adaptive */}
       <Box
         minH={[782, 726, 726, 700]}
