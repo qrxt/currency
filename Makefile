@@ -2,7 +2,7 @@ setup:
 	npm i
 
 dev:
-	npm run dev
+	npm run dev & npm run server
 
 typecheck-js:
 	npm run typecheck

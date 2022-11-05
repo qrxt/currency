@@ -1,0 +1,14 @@
+{
+  "date": "2022-10-31",
+  "info": {
+    "rate": 61.801083,
+    "timestamp": 1667236803
+  },
+  "query": {
+    "amount": 5,
+    "from": "USD",
+    "to": "RUB"
+  },
+  "result": 309.005415,
+  "success": true
+}

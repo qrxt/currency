@@ -71,7 +71,7 @@ const getOptions = (dates: string[], colorMode: ColorMode): ApexOptions => ({
 });
 
 // TODO: move to types
-interface TimeSeries {
+export interface TimeSeries {
   base: string; // TODO: replace with "CurrencyCode"
   rates: {
     [key: string]: {
@@ -80,7 +80,7 @@ interface TimeSeries {
   };
 }
 
-interface Series {
+export interface Series {
   type: string;
   data: number[];
 }

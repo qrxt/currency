@@ -1,0 +1,6 @@
+{
+  "network": {
+    "requestUrlBase": "http://localhost:3002",
+    "endpoints": {}
+  }
+}
