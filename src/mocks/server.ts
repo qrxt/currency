@@ -6,6 +6,17 @@ import { generateRates } from "./data/dataGenerators/generateTimeseries";
 
 const app: Express = express();
 
+app.use(function (req, res, next) {
+  setTimeout(next, 1000);
+});
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  next();
+});
+
 app.get("/exchangerates_data/symbols", (req, res) => {
   console.log(req.originalUrl);
 

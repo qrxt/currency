@@ -1,20 +1,11 @@
-// TODO: move url base to config
-// TODO: move endpoints list to config
+import config from "../config.json";
 
-// TODO: move mock server port to config
-const mockServerPort = 7070;
-const base = `http://localhost:${mockServerPort}/api`;
+const { endpoints, requestUrlBase } = config.network;
 
 interface Endpoint {
   path: string;
   method: string;
 }
-
-interface Endpoints {
-  [key: string]: Endpoint;
-}
-
-export const endpoints: Endpoints = {};
 
 interface QueryParams {
   [key: string]: string;
@@ -27,14 +18,17 @@ function insertParams(url: string, params: QueryParams) {
 }
 
 export function getEndpoint(name: string, params?: QueryParams) {
-  const endpoint = endpoints[name];
+  const endpointsDict = endpoints as Record<string, Endpoint>;
+  const endpoint = endpointsDict[name];
 
   if (!endpoint) {
     throw new Error(`There is no endpoint with name ${name}`);
   }
 
+  const path = `${requestUrlBase}${endpoint.path}`;
+
   return {
     ...endpoint,
-    path: params ? insertParams(endpoint.path, params) : endpoint.path,
+    path: params ? insertParams(path, params) : path,
   };
 }

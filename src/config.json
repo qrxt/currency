@@ -1,6 +1,11 @@
 {
   "network": {
-    "requestUrlBase": "http://localhost:3002",
-    "endpoints": {}
+    "requestUrlBase": "http://localhost:3000",
+    "endpoints": {
+      "getSymbols": {
+        "path": "/exchangerates_data/symbols",
+        "method": "GET"
+      }
+    }
   }
 }

@@ -9,16 +9,14 @@ import {
   NumberInputField,
   Text,
 } from "@chakra-ui/react";
-import { upperCase } from "lodash";
 import Section from "components/Section";
-import { useCookies } from "react-cookie";
 import { AiOutlineSwap as IconSwap } from "react-icons/ai";
 import { OptionBase, GroupBase, Select } from "chakra-react-select";
 
 const currencies = [
-  { value: "eur", label: "EUR" },
-  { value: "usd", label: "USD" },
-  { value: "rub", label: "RUB" },
+  { value: "EUR", label: "EUR" },
+  { value: "USD", label: "USD" },
+  { value: "RUB", label: "RUB" },
 ];
 
 interface CurrencyOption extends OptionBase {
@@ -27,8 +25,8 @@ interface CurrencyOption extends OptionBase {
 }
 
 function ConverterPage() {
-  const [baseCurrencyCookie] = useCookies(["base-currency"]);
-  const baseCurrency = upperCase(baseCurrencyCookie["base-currency"]);
+  // const [baseCurrencyCookie] = useCookies(["base-currency"]);
+  // const baseCurrency = upperCase(baseCurrencyCookie["base-currency"]);
 
   //
   // const format = (val) => "$" + val;
@@ -48,7 +46,7 @@ function ConverterPage() {
     console.log("to");
   }
 
-  const inputPlaceholder = `250.0 ${baseCurrency}`; // `${baseCurrency} to `;
+  // const inputPlaceholder = `250.0 ${baseCurrency}`; // `${baseCurrency} to `;
 
   return (
     <Section py={6}>
@@ -60,7 +58,7 @@ function ConverterPage() {
                 <NumberInputField
                   textAlign="center"
                   fontSize="1.6em"
-                  placeholder={inputPlaceholder}
+                  // placeholder={inputPlaceholder}
                   fontWeight="medium"
                   py={6}
                 />

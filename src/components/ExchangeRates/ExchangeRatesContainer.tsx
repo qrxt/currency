@@ -1,4 +1,6 @@
-import React from "react";
+import { isEmpty } from "lodash";
+import React, { useEffect } from "react";
+import { useCookies } from "react-cookie";
 import ExchangeRates from "./ExchangeRates";
 import { useChart } from "./hooks";
 
@@ -43,6 +45,16 @@ const series = {
 
 function ExchangeRatesContainer() {
   const [chartOptions, timeseries] = useChart(series);
+  const [baseCurrencyCookie, setBaseCurrencyCookie] = useCookies([
+    "base-currency",
+  ]);
+
+  useEffect(() => {
+    // TODO: determine by location / lang
+    if (isEmpty(baseCurrencyCookie)) {
+      setBaseCurrencyCookie("base-currency", "USD");
+    }
+  }, [baseCurrencyCookie, setBaseCurrencyCookie]);
 
   return (
     chartOptions && (

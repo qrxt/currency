@@ -4,7 +4,7 @@ setup:
 dev:
 	npm run dev & npm run server
 
-typecheck-js:
+typecheck:
 	npm run typecheck
 
 fmt:
@@ -18,6 +18,7 @@ lint:
 
 test:
 	make fmt
+	make typecheck
 	make lint
 	make test-js
 

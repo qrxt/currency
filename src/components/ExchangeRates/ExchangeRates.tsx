@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import Section from "components/Section";
 import Chart from "react-apexcharts";
-import useConfig from "lib/hooks/useConfig";
 import { ApexOptions } from "apexcharts";
 import { Series } from "./hooks";
 
