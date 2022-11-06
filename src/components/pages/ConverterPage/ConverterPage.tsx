@@ -25,15 +25,6 @@ interface CurrencyOption extends OptionBase {
 }
 
 function ConverterPage() {
-  // const [baseCurrencyCookie] = useCookies(["base-currency"]);
-  // const baseCurrency = upperCase(baseCurrencyCookie["base-currency"]);
-
-  //
-  // const format = (val) => "$" + val;
-  // const parse = (val) => val.replace(/^\$/, "");
-  // const [value, setValue] = React.useState("1.53");
-  //
-
   function handleChangeFrom() {
     console.log("from");
   }

@@ -1,8 +1,8 @@
 import express, { Express } from "express";
 
 import symbols from "./data/symbols.json";
-import convert from "./data/convert.json";
 import { generateRates } from "./data/dataGenerators/generateTimeseries";
+import { generateConverted } from "./data/dataGenerators/generateConverted";
 
 const app: Express = express();
 
@@ -27,7 +27,11 @@ app.get("/exchangerates_data/convert", (req, res) => {
   // ?to=RUB&from=USD&amount=5
   console.log(req.originalUrl);
 
-  res.send(convert);
+  const amount = req.query.amount;
+
+  const converted = generateConverted(amount as string);
+
+  res.send(converted);
 });
 
 app.get("/exchangerates_data/timeseries", (req, res) => {

@@ -1,3 +1,4 @@
+// TODO: change to Record<>
 export interface Rate {
   [key: string]: number;
 }

@@ -5,6 +5,10 @@
       "getSymbols": {
         "path": "/exchangerates_data/symbols",
         "method": "GET"
+      },
+      "getConversionResult": {
+        "path": "/exchangerates_data/convert?to={to}&from={from}&amount={amount}",
+        "method": "GET"
       }
     }
   }
