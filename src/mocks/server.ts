@@ -7,7 +7,7 @@ import { generateConverted } from "./data/dataGenerators/generateConverted";
 const app: Express = express();
 
 app.use(function (req, res, next) {
-  setTimeout(next, 1000);
+  setTimeout(next, 300);
 });
 
 app.use(function (req, res, next) {
