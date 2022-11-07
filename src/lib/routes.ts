@@ -11,7 +11,7 @@ export interface Route {
 const routes: Record<string, Route> = {
   "/": {
     url: "/",
-    name: "Monitor",
+    name: "Rates",
     heading: "Exchange Rates",
     icon: FiBarChart2,
   },
