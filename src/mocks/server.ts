@@ -28,8 +28,14 @@ app.get("/exchangerates_data/convert", (req, res) => {
   console.log(req.originalUrl);
 
   const amount = req.query.amount;
+  const from = req.query.from;
+  const to = req.query.to;
 
-  const converted = generateConverted(amount as string);
+  const converted = generateConverted(
+    amount as string,
+    from as string,
+    to as string
+  );
 
   res.send(converted);
 });

@@ -1,13 +1,19 @@
+import { PayloadAction } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { ConversionResult } from "types/conversion";
 import api from "./api";
-import { conversionResultSlice } from "./slice";
+import { conversionResultSlice, GetConversionResultPayload } from "./slice";
 
-export function* getConversionResult() {
+export function* getConversionResult({
+  payload: { amount, from, to },
+}: PayloadAction<GetConversionResultPayload>) {
   try {
     const response: AxiosResponse<ConversionResult> = yield call(
-      api.getConversionResult
+      api.getConversionResult,
+      String(amount),
+      from,
+      to
     );
     const conversionResult = response.data;
 

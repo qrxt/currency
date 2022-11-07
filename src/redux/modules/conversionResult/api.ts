@@ -1,8 +1,17 @@
 import axios from "axios";
 import { getEndpoint } from "lib/getEndpoint";
+import { CurrencySymbol } from "types/currency";
 
-export async function getConversionResult() {
-  const { path, method } = getEndpoint("getConversionResult");
+export async function getConversionResult(
+  amount: string,
+  from: CurrencySymbol,
+  to: CurrencySymbol
+) {
+  const { path, method } = getEndpoint("getConversionResult", {
+    amount,
+    from,
+    to,
+  });
 
   return axios({ url: path, method })
     .then((response) => {

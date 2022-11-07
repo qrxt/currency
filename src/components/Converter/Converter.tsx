@@ -7,82 +7,50 @@ import {
   IconButton,
   NumberInput,
   NumberInputField,
+  Spinner,
   Text,
 } from "@chakra-ui/react";
 import Section from "components/Section";
 import { AiOutlineSwap as IconSwap } from "react-icons/ai";
-import {
-  OptionBase,
-  GroupBase,
-  Select,
-  SingleValue,
-} from "chakra-react-select";
+import { GroupBase, Select, SingleValue } from "chakra-react-select";
 import { CurrencySymbol, Symbols } from "types/currency";
-import { filter, find, includes, keys, map, sortBy } from "lodash";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-interface CurrencyOption extends OptionBase {
-  value: string;
-  label: string;
-}
-
+import { CurrencyOption, useConverter, useCurrencyOptions } from "./hooks";
 interface ConverterProps {
-  // baseCurrency: CurrencySymbol;
   symbols: Symbols;
+  fetchConversionResult: (
+    amount: number,
+    from: CurrencySymbol,
+    to: CurrencySymbol
+  ) => void;
+  conversionResult?: number;
+  isConversionResultLoading: boolean;
 }
 
 interface IFormInput {
   amount: number;
 }
 
-function useCurrencyOptions(symbols: Symbols): CurrencyOption[] {
-  return map(keys(symbols), (symbol) => ({
-    label: symbol,
-    value: symbol,
-  }));
-}
-
-function useConverter({
-  from,
-  to,
-  currencyOptions,
-}: {
-  from: CurrencySymbol | null;
-  to?: CurrencySymbol | null;
-  currencyOptions: CurrencyOption[];
-}) {
-  const sort = (options: CurrencyOption[]) => {
-    const priorityCurrencies = ["USD", "RUB", "EUR"];
-    return sortBy(
-      options,
-      (option) => !includes(priorityCurrencies, option.value)
-    );
-  };
-
-  const fromOptionsFiltered = filter(
-    currencyOptions,
-    (option) => option.value !== to
-  );
-  const toOptionsFiltered = filter(
-    currencyOptions,
-    (option) => option.value !== from
-  );
-
-  const fromOptions = sort(fromOptionsFiltered);
-  const toOptions = sort(toOptionsFiltered);
-
-  return {
-    fromOptions: fromOptions,
-    toOptions: toOptions,
-  };
+enum CurrencySelectSubtype {
+  From,
+  To,
 }
 
 function Converter(props: ConverterProps) {
-  const { symbols } = props;
+  const {
+    symbols,
+    fetchConversionResult,
+    conversionResult,
+    isConversionResultLoading,
+  } = props;
+  const [amount, setAmount] = useState(0);
   const [from, setFrom] = useState<CurrencySymbol | null>(null);
   const [to, setTo] = useState<CurrencySymbol | null>(null);
   const currencyOptions = useCurrencyOptions(symbols);
-  const { fromOptions, toOptions } = useConverter({
+  const { register, handleSubmit } = useForm<IFormInput>();
+  const isSubmitButtonDisabled = !from || !to;
+  const isSwapButtonDisabled = isSubmitButtonDisabled;
+  const { fromOptions, toOptions, fromValue, toValue } = useConverter({
     from,
     to,
     currencyOptions,
@@ -92,23 +60,35 @@ function Converter(props: ConverterProps) {
     const currentFrom = from;
     setFrom(to);
     setTo(currentFrom);
-  }
 
-  function handleChangeFrom(option: SingleValue<CurrencyOption>) {
-    if (option) {
-      setFrom(option.value as CurrencySymbol);
+    if (conversionResult && from && to) {
+      fetchConversionResult(Number(amount), from, to);
     }
   }
 
-  function handleChangeTo(option: SingleValue<CurrencyOption>) {
-    if (option) {
-      setTo(option.value as CurrencySymbol);
-    }
+  function handleChangeCurrency(subtype: CurrencySelectSubtype) {
+    const subtypeToSetState = {
+      [CurrencySelectSubtype.From]: setFrom,
+      [CurrencySelectSubtype.To]: setTo,
+    };
+
+    return (option: SingleValue<CurrencyOption>) => {
+      if (conversionResult && from && to) {
+        fetchConversionResult(Number(amount), from, to);
+      }
+
+      if (option) {
+        subtypeToSetState[subtype](option.value as CurrencySymbol);
+      }
+    };
   }
 
-  const { register, handleSubmit } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = ({ amount }) => {
+    if (from && to) {
+      fetchConversionResult(Number(amount), from, to);
+    }
+  };
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
   function renderForm() {
     return (
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -124,11 +104,12 @@ function Converter(props: ConverterProps) {
                   <NumberInputField
                     textAlign="center"
                     fontSize="1.6em"
-                    // placeholder={inputPlaceholder}
+                    placeholder="Enter amount"
                     fontWeight="medium"
                     py={6}
                     {...register("amount", {
                       required: true,
+                      onChange: (e) => setAmount(e.target.value),
                     })}
                   />
                 </NumberInput>
@@ -141,17 +122,15 @@ function Converter(props: ConverterProps) {
                   <Select<CurrencyOption, false, GroupBase<CurrencyOption>>
                     variant="unstyled"
                     placeholder="From"
-                    onChange={handleChangeFrom}
+                    onChange={handleChangeCurrency(CurrencySelectSubtype.From)}
                     options={fromOptions}
-                    value={find(
-                      currencyOptions,
-                      (currency) => currency.value == from
-                    )}
+                    value={fromValue}
                   />
                 </Box>
 
                 <IconButton
-                  onChange={toggleSwapCurrencies}
+                  onClick={toggleSwapCurrencies}
+                  disabled={isSwapButtonDisabled}
                   aria-label="Swap currencies"
                   icon={<IconSwap size="35px" />}
                   variant="ghost"
@@ -162,16 +141,18 @@ function Converter(props: ConverterProps) {
                   <Select<CurrencyOption, false, GroupBase<CurrencyOption>>
                     variant="unstyled"
                     placeholder="To"
-                    onChange={handleChangeTo}
+                    onChange={handleChangeCurrency(CurrencySelectSubtype.To)}
                     options={toOptions}
-                    value={find(
-                      currencyOptions,
-                      (currency) => currency.value == to
-                    )}
+                    value={toValue}
                   />
                 </Box>
 
-                <Button w="60px" type="submit" ml="auto">
+                <Button
+                  w="60px"
+                  type="submit"
+                  ml="auto"
+                  disabled={isSubmitButtonDisabled}
+                >
                   Go
                 </Button>
               </Flex>
@@ -179,9 +160,20 @@ function Converter(props: ConverterProps) {
 
             <Box h="70px">
               <Center h="100%">
-                <Text fontSize="3xl" fontWeight="medium">
-                  {/* 249.32 EUR */}
-                </Text>
+                {isConversionResultLoading ? (
+                  <Spinner thickness="4px" color="purple.500" size="xl" />
+                ) : (
+                  conversionResult && (
+                    <Flex alignItems="flex-end">
+                      <Text fontSize="3xl" fontWeight="medium" mr={1}>
+                        {conversionResult.toFixed(2)}
+                      </Text>
+                      <Text fontSize="xl" pb="1">
+                        {to}
+                      </Text>
+                    </Flex>
+                  )
+                )}
               </Center>
             </Box>
           </Box>

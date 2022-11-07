@@ -1,4 +1,4 @@
-export function generateConverted(amount: string) {
+export function generateConverted(amount: string, from: string, to: string) {
   return {
     date: "2022-10-31",
     info: {
@@ -7,8 +7,8 @@ export function generateConverted(amount: string) {
     },
     query: {
       amount: 5,
-      from: "USD",
-      to: "RUB",
+      from,
+      to,
     },
     result: Number(amount) * (60 + Math.random()),
     success: true,
