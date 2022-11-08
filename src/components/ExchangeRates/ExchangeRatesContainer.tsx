@@ -8,6 +8,7 @@ import { useCookies } from "react-cookie";
 import { Conversion } from "types/conversion";
 import { CurrencySymbol } from "types/currency";
 import ExchangeRates from "./ExchangeRates";
+import ExchangeRatesSkeleton from "./ExchangeRatesSkeleton";
 
 function useCurrenciesToConvert(baseCurrency: CurrencySymbol): Conversion[] {
   const config = useConfig();
@@ -47,7 +48,7 @@ function ExchangeRatesContainer() {
   }, [baseCurrencyCookie, setBaseCurrencyCookie]);
 
   if (!timeSeries) {
-    return <p>loading</p>;
+    return <ExchangeRatesSkeleton />;
   }
 
   return <ExchangeRates series={timeSeries} baseCurrency={baseCurrency} />;
