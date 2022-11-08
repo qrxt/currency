@@ -3,6 +3,7 @@ import Settings from "./Settings";
 import { useDispatch, useSelector } from "@redux/hooks";
 import {
   selectError,
+  selectIsInitialSymbolsList,
   selectIsLoading,
   selectSymbols,
 } from "@redux/modules/symbols/selectors";
@@ -16,6 +17,7 @@ function SettingsContainer() {
   const symbols = useSelector(selectSymbols);
   const isLoading = useSelector(selectIsLoading);
   const isFailed = useSelector(selectError);
+  const isInitialSymbolsList = useSelector(selectIsInitialSymbolsList);
 
   useEffect(() => {
     if (isFailed) {
@@ -28,8 +30,10 @@ function SettingsContainer() {
   }, [isFailed, toast]);
 
   const initFetch = useCallback(() => {
-    dispatch(symbolsSlice.actions.getSymbols());
-  }, [dispatch]);
+    if (isInitialSymbolsList) {
+      dispatch(symbolsSlice.actions.getSymbols());
+    }
+  }, [dispatch, isInitialSymbolsList]);
 
   useEffect(() => {
     initFetch();
