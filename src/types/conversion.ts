@@ -7,3 +7,8 @@ export interface ConversionResult {
   };
   result: number;
 }
+
+export type Conversion = [
+  CurrencySymbol | undefined,
+  CurrencySymbol | undefined
+];

@@ -1,16 +1,13 @@
 import { useDispatch, useSelector } from "@redux/hooks";
 import { symbolsSlice } from "@redux/modules/symbols/slice";
 import { conversionResultSlice } from "@redux/modules/conversionResult/slice";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
-  selectError,
   selectIsLoading,
   selectSymbols,
   selectIsInitialSymbolsList,
 } from "@redux/modules/symbols/selectors";
-import { useCookies } from "react-cookie";
 import Converter from "./Converter";
-import { size } from "lodash";
 import { CurrencySymbol } from "types/currency";
 import {
   selectConversionResult,

@@ -1,53 +1,43 @@
-import { isEmpty } from "lodash";
+import { useDispatch, useSelector } from "@redux/hooks";
+import { selectTimeSeries } from "@redux/modules/timeSeries/selectors";
+import { timeSeriesSlice } from "@redux/modules/timeSeries/slice";
+import useConfig from "lib/hooks/useConfig";
+import { includes, isEmpty, size, without, zip } from "lodash";
 import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { Conversion } from "types/conversion";
+import { CurrencySymbol } from "types/currency";
 import ExchangeRates from "./ExchangeRates";
-import { useChart } from "./hooks";
 
-// TODO: get from redux
-const series = {
-  base: "USD",
-  end_date: "2022-11-02",
-  rates: {
-    "2022-10-25": {
-      RUB: 62.250018,
-    },
-    "2022-10-26": {
-      RUB: 61.275022,
-    },
-    "2022-10-27": {
-      RUB: 61.32499,
-    },
-    "2022-10-28": {
-      RUB: 61.525038,
-    },
-    "2022-10-29": {
-      RUB: 61.525038,
-    },
-    "2022-10-30": {
-      RUB: 61.524985,
-    },
-    "2022-10-31": {
-      RUB: 62.049837,
-    },
-    "2022-11-01": {
-      RUB: 61.749903,
-    },
-    "2022-11-02": {
-      RUB: 61.67497,
-    },
-  },
-  start_date: "2022-10-25",
-  success: true,
-  timeseries: true,
-};
-// TODO: get from redux
+function useCurrenciesToConvert(baseCurrency: CurrencySymbol): Conversion[] {
+  const config = useConfig();
+  const priorityCurrencies = config.currencies
+    .priorityCurrencies as CurrencySymbol[];
+
+  const filteredCurrencies = includes(priorityCurrencies, baseCurrency)
+    ? without(priorityCurrencies, baseCurrency)
+    : without(priorityCurrencies, "RUB");
+
+  const conversions = zip(
+    Array(size(filteredCurrencies)).fill(baseCurrency),
+    filteredCurrencies
+  );
+  return conversions;
+}
 
 function ExchangeRatesContainer() {
-  const [chartOptions, timeseries] = useChart(series);
+  const dispatch = useDispatch();
   const [baseCurrencyCookie, setBaseCurrencyCookie] = useCookies([
     "base-currency",
   ]);
+  const baseCurrency = baseCurrencyCookie["base-currency"] as CurrencySymbol;
+  const conversions = useCurrenciesToConvert(baseCurrency);
+  const timeSeries = useSelector(selectTimeSeries);
+
+  useEffect(() => {
+    dispatch(timeSeriesSlice.actions.getTimeSeries({ conversions }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   useEffect(() => {
     // TODO: determine by location / lang
@@ -56,11 +46,11 @@ function ExchangeRatesContainer() {
     }
   }, [baseCurrencyCookie, setBaseCurrencyCookie]);
 
-  return (
-    chartOptions && (
-      <ExchangeRates chartOptions={chartOptions} timeseries={timeseries} />
-    )
-  );
+  if (!timeSeries) {
+    return <p>loading</p>;
+  }
+
+  return <ExchangeRates series={timeSeries} baseCurrency={baseCurrency} />;
 }
 
 export default ExchangeRatesContainer;

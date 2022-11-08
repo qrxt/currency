@@ -1,4 +1,7 @@
 {
+  "currencies": {
+    "priorityCurrencies": ["USD", "RUB", "EUR"]
+  },
   "network": {
     "requestUrlBase": "http://localhost:3000",
     "endpoints": {
@@ -8,6 +11,10 @@
       },
       "getConversionResult": {
         "path": "/exchangerates_data/convert?to={to}&from={from}&amount={amount}",
+        "method": "GET"
+      },
+      "getCurrencyTimeSeries": {
+        "path": "/exchangerates_data/timeseries?start_date={startDate}&end_date={endDate}&base={base}&symbols={symbol}",
         "method": "GET"
       }
     }

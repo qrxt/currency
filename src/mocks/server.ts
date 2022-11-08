@@ -41,12 +41,14 @@ app.get("/exchangerates_data/convert", (req, res) => {
 });
 
 app.get("/exchangerates_data/timeseries", (req, res) => {
-  // ?start_date=2022-10-25&end_date=2022-10-31
+  // ?start_date=2022-11-01&end_date=2022-11-07&base=USD&symbols=RUB
   console.log(req.originalUrl);
+
+  const base = req.query.base;
 
   const rates = generateRates(7, "EUR");
   const result = {
-    base: "RUB",
+    base: base,
     rates: rates,
   };
 

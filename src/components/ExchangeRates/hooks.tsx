@@ -1,6 +1,8 @@
-import { ColorMode, useColorMode } from "@chakra-ui/react";
+import { ColorMode } from "@chakra-ui/react";
 import { ApexOptions } from "apexcharts";
-import { keys, values } from "lodash";
+import { first, keys, values } from "lodash";
+import { CurrencySymbol } from "types/currency";
+import { TimeSeries } from "types/timeSeries";
 
 const getOptions = (dates: string[], colorMode: ColorMode): ApexOptions => ({
   theme: {
@@ -70,36 +72,33 @@ const getOptions = (dates: string[], colorMode: ColorMode): ApexOptions => ({
   },
 });
 
-// TODO: move to types
-export interface TimeSeries {
-  base: string; // TODO: replace with "CurrencyCode"
-  rates: {
-    [key: string]: {
-      [key: string]: number; // TODO: replace with "CurrencyCode"
-    };
-  };
+export function getChartOptions(timeseries: TimeSeries, colorMode: ColorMode) {
+  const dates = timeseries.rates.map((entry) => keys(entry)[0]);
+
+  return getOptions(dates, colorMode);
 }
 
-export interface Series {
+export interface ChartSeries {
   type: string;
   data: number[];
+  target: CurrencySymbol;
+  today?: string;
 }
 
-export function useChart(
-  timeseries: TimeSeries
-): [options: ApexOptions | null, series: Series[]] {
-  const { colorMode } = useColorMode();
-  const dates = keys(timeseries.rates);
-  const options = getOptions(dates, colorMode);
+export function getChart(timeSeries: TimeSeries) {
+  const currencyValues = values(timeSeries.rates).map((rate) => {
+    const entries = values(rate)[0];
+    const currencyValues = values(entries)[0];
 
-  const currencyValues = values(timeseries.rates).map((x) => x.RUB);
+    return currencyValues;
+  });
 
-  const series = [
-    {
-      type: "area",
-      data: currencyValues,
-    },
-  ];
+  const series: ChartSeries = {
+    type: "area",
+    data: currencyValues,
+    target: timeSeries.target,
+    today: first(currencyValues)?.toFixed(2),
+  };
 
-  return [options, series];
+  return series;
 }

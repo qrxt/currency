@@ -1,5 +1,5 @@
 import { CurrencySymbol, Symbols } from "types/currency";
-import { every, filter, find, includes, keys, map, some, sortBy } from "lodash";
+import { filter, find, includes, keys, map, sortBy } from "lodash";
 import { OptionBase } from "chakra-react-select";
 
 export interface CurrencyOption extends OptionBase {

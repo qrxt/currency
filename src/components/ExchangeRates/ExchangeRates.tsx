@@ -1,58 +1,47 @@
 import React from "react";
-import { Box, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, Text, useColorMode } from "@chakra-ui/react";
 import Section from "components/Section";
 import Chart from "react-apexcharts";
-import { ApexOptions } from "apexcharts";
-import { Series } from "./hooks";
+import { getChart, getChartOptions } from "./hooks";
+import { TimeSeries } from "types/timeSeries";
+import { map } from "lodash";
+import { CurrencySymbol } from "types/currency";
 
 interface ExchangeRatesProps {
-  chartOptions: ApexOptions;
-  timeseries: Series[];
+  series: TimeSeries[];
+  baseCurrency: CurrencySymbol;
 }
 
-function ExchangeRates(props: ExchangeRatesProps) {
-  const { chartOptions, timeseries } = props;
+function ExchangeRates({ series, baseCurrency }: ExchangeRatesProps) {
+  const { colorMode } = useColorMode();
 
   return (
     <Box>
       <SimpleGrid columns={[1, 1, 1, 2]} spacing={[5, 5, 5, 10]}>
-        <Section w={["100%", "100%", "70%", "100%"]} py={6}>
-          <Box px={4}>
-            <Heading as="h2" size="md" mb={3}>
-              USD / RUB
-            </Heading>
+        {map(series, (seriesItem, idx) => {
+          const chartSeries = getChart(seriesItem);
+          const options = getChartOptions(seriesItem, colorMode);
+          return (
+            <Section w={["100%", "100%", "70%", "100%"]} py={6} key={idx}>
+              <Box px={4}>
+                <Heading as="h2" size="md" mb={3}>
+                  {`${baseCurrency} / ${seriesItem.target}`}
+                </Heading>
 
-            <Text>1 USD = 63.49 RUB</Text>
-          </Box>
+                <Text>{`${baseCurrency} 1 = ${seriesItem.target} ${chartSeries.today}`}</Text>
+              </Box>
 
-          <Box overflow="hidden">
-            <Chart
-              options={chartOptions}
-              series={timeseries}
-              type="line"
-              height={150}
-            />
-          </Box>
-        </Section>
-
-        <Section w={["100%", "100%", "70%", "100%"]} py={6}>
-          <Box px={4}>
-            <Heading as="h2" size="md" mb={3}>
-              USD / RUB
-            </Heading>
-
-            <Text>1 USD = 63.49 RUB</Text>
-          </Box>
-
-          <Box overflow="hidden">
-            <Chart
-              options={chartOptions}
-              series={timeseries}
-              type="line"
-              height={150}
-            />
-          </Box>
-        </Section>
+              <Box overflow="hidden">
+                <Chart
+                  options={options}
+                  series={[chartSeries]}
+                  type="line"
+                  height={150}
+                />
+              </Box>
+            </Section>
+          );
+        })}
       </SimpleGrid>
     </Box>
   );

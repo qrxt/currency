@@ -22,7 +22,7 @@ export function* getConversionResult({
     );
   } catch (error) {
     const errorMessage = String(error) || "An unknown error occurred";
-    console.error("failed to get symbols list: ", errorMessage);
+    console.error("failed to get conversion result: ", errorMessage);
 
     yield put(
       conversionResultSlice.actions.getConversionResultFailure(errorMessage)

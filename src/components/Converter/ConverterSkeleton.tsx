@@ -1,4 +1,4 @@
-import { Box, Center, Skeleton, SkeletonText } from "@chakra-ui/react";
+import { Box, Center, Skeleton } from "@chakra-ui/react";
 import Section from "components/Section";
 import React from "react";
 
