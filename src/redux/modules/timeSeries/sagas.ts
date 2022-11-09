@@ -27,10 +27,9 @@ export function* getCurrencyTimeSeries({
 
     yield put(timeSeriesSlice.actions.getTimeSeriesSuccess(timeSeriesList));
   } catch (error) {
-    const errorMessage = String(error) || "An unknown error occurred";
-    console.error("failed to get time series: ", errorMessage);
+    console.error("failed to get time series");
 
-    yield put(timeSeriesSlice.actions.getTimeSeriesFailure(errorMessage));
+    yield put(timeSeriesSlice.actions.getTimeSeriesFailure());
   }
 }
 

@@ -31,7 +31,7 @@ export const timeSeriesSlice = createSlice({
       state.result = action.payload;
       state.isLoading = false;
     },
-    getTimeSeriesFailure(state, action: PayloadAction<string>) {
+    getTimeSeriesFailure(state) {
       state.isLoading = false;
       state.result = null;
       state.isFailed = true;

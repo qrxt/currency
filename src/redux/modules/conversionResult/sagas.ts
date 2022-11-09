@@ -21,12 +21,9 @@ export function* getConversionResult({
       conversionResultSlice.actions.getConversionResultSuccess(conversionResult)
     );
   } catch (error) {
-    const errorMessage = String(error) || "An unknown error occurred";
-    console.error("failed to get conversion result: ", errorMessage);
+    console.error("failed to get conversion result");
 
-    yield put(
-      conversionResultSlice.actions.getConversionResultFailure(errorMessage)
-    );
+    yield put(conversionResultSlice.actions.getConversionResultFailure());
   }
 }
 

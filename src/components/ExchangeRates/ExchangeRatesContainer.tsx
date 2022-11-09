@@ -1,5 +1,9 @@
+import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "@redux/hooks";
-import { selectTimeSeries } from "@redux/modules/timeSeries/selectors";
+import {
+  selectError,
+  selectTimeSeries,
+} from "@redux/modules/timeSeries/selectors";
 import { timeSeriesSlice } from "@redux/modules/timeSeries/slice";
 import useConfig from "lib/hooks/useConfig";
 import { includes, isEmpty, size, without, zip } from "lodash";
@@ -28,17 +32,31 @@ function useCurrenciesToConvert(baseCurrency: CurrencySymbol): Conversion[] {
 
 function ExchangeRatesContainer() {
   const dispatch = useDispatch();
+  const toast = useToast();
   const [baseCurrencyCookie, setBaseCurrencyCookie] = useCookies([
     "base-currency",
   ]);
   const baseCurrency = baseCurrencyCookie["base-currency"] as CurrencySymbol;
   const conversions = useCurrenciesToConvert(baseCurrency);
   const timeSeries = useSelector(selectTimeSeries);
+  const isTimeSeriesLoadFailed = useSelector(selectError);
 
   useEffect(() => {
-    dispatch(timeSeriesSlice.actions.getTimeSeries({ conversions }));
+    if (baseCurrency) {
+      dispatch(timeSeriesSlice.actions.getTimeSeries({ conversions }));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, [dispatch, baseCurrency]);
+
+  useEffect(() => {
+    if (isTimeSeriesLoadFailed) {
+      toast({
+        title: "Failed to load time series",
+        status: "error",
+        isClosable: true,
+      });
+    }
+  }, [isTimeSeriesLoadFailed, toast]);
 
   useEffect(() => {
     // TODO: determine by location / lang

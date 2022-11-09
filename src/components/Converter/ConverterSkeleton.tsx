@@ -6,7 +6,7 @@ function ConverterSkeleton() {
   return (
     <Section h="314" py={8}>
       <Center h="100%">
-        <Box w="50%">
+        <Box w={["80%", "80%", "50%", "50%"]}>
           <Skeleton w="100%" h="70px" mb={3} />
           <Skeleton w="100%" h="40px" />
         </Box>

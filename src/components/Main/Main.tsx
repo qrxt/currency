@@ -6,6 +6,7 @@ function Main({ children }: { children: React.ReactNode }) {
   const bg = useColorModeValue("blackAlpha.50", "whiteAlpha.50");
   const mainStyles = css`
     grid-area: main;
+    flex-grow: 1;
   `;
 
   return (

@@ -98,12 +98,12 @@ function Converter(props: ConverterProps) {
           flexDirection="column"
         >
           <Box mb={3} pt={70}>
-            <Flex mb={3}>
-              <Box w={300}>
+            <Flex mb={3} justifyContent="center">
+              <Box w={[200, 200, 300, 300]}>
                 <NumberInput>
                   <NumberInputField
                     textAlign="center"
-                    fontSize="1.6em"
+                    fontSize={["1.2em", "1.2em", "1.6em", "1.6em"]}
                     placeholder="Enter amount"
                     fontWeight="medium"
                     py={6}
@@ -117,8 +117,13 @@ function Converter(props: ConverterProps) {
             </Flex>
 
             <Box mb={3}>
-              <Flex>
-                <Box w={75} mr={3}>
+              <Flex
+                flexWrap="wrap"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection={["column", "column", "row", "row"]}
+              >
+                <Box w={["100%", "100%", 75, 75]} mr={3}>
                   <Select<CurrencyOption, false, GroupBase<CurrencyOption>>
                     variant="unstyled"
                     placeholder="From"
@@ -132,12 +137,14 @@ function Converter(props: ConverterProps) {
                   onClick={toggleSwapCurrencies}
                   disabled={isSwapButtonDisabled}
                   aria-label="Swap currencies"
-                  icon={<IconSwap size="35px" />}
+                  icon={<IconSwap size="100%" />}
+                  w={[14, 14, 10, 10]}
+                  h={[14, 14, 10, 10]}
                   variant="ghost"
                   mr={3}
                 />
 
-                <Box w={75} mr={3}>
+                <Box w={["100%", "100%", 75, 75]} mr={3} mb={[6, 6, 0, 0]}>
                   <Select<CurrencyOption, false, GroupBase<CurrencyOption>>
                     variant="unstyled"
                     placeholder="To"
@@ -148,9 +155,9 @@ function Converter(props: ConverterProps) {
                 </Box>
 
                 <Button
-                  w="60px"
+                  w={["100%", "65%", "60px", "60px"]}
                   type="submit"
-                  ml="auto"
+                  ml={[0, 0, "auto", "auto"]}
                   disabled={isSubmitButtonDisabled}
                 >
                   Go
@@ -182,7 +189,11 @@ function Converter(props: ConverterProps) {
     );
   }
 
-  return <Section py={6}>{renderForm()}</Section>;
+  return (
+    <Section minW={100} py={[3, 3, 6, 6]}>
+      {renderForm()}
+    </Section>
+  );
 }
 
 export default Converter;

@@ -31,7 +31,7 @@ export const symbolsSlice = createSlice({
       state.list = action.payload;
       state.isLoading = false;
     },
-    getSymbolsFailure(state, action: PayloadAction<string>) {
+    getSymbolsFailure(state) {
       state.isLoading = false;
       state.list = initialSymbols;
       state.isFailed = true;

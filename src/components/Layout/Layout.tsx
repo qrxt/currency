@@ -7,24 +7,34 @@ import Main from "components/Main";
 
 function Layout({ children }: { children: React.ReactNode }) {
   const bg = useColorModeValue("white", "whiteAlpha.200");
-  const color = useColorModeValue("black", "white");
+  const color = useColorModeValue("black", "whiteAlpha.900");
   const borderColor = useColorModeValue("whiteAlpha.300", "whiteAlpha.100");
 
   const wrapperStyles = css`
-    display: grid;
-    grid-template-areas:
-      "sidebar header"
-      "sidebar main"
-      "sidebar main";
-    grid-template-rows: 90px 1fr 1fr;
-    grid-template-columns: 170px 1fr;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 630px) {
+      display: grid;
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main"
+        "sidebar main";
+      grid-template-rows: 90px 1fr 1fr;
+      grid-template-columns: 170px 1fr;
+    }
   `;
+  const largeScreenHeight = "calc(100vh - 1.5rem)";
 
   return (
-    <Container maxW={"5xl"} py={3}>
-      {/* TODO: adaptive */}
+    <Container maxW={"5xl"} py={[3, 3, 3, 3]}>
       <Box
-        minH={[782, 726, 726, 700]}
+        minH={[
+          largeScreenHeight,
+          largeScreenHeight,
+          largeScreenHeight,
+          "calc(75vh - 1.5rem)",
+        ]}
         bg={bg}
         color={color}
         border="1px"
@@ -33,8 +43,8 @@ function Layout({ children }: { children: React.ReactNode }) {
         css={wrapperStyles}
         boxShadow="lg"
       >
-        <Header />
         <Sidebar />
+        <Header />
         <Main>{children}</Main>
       </Box>
     </Container>

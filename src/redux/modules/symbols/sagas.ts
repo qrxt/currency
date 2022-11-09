@@ -15,10 +15,9 @@ export function* getSymbols() {
 
     yield put(symbolsSlice.actions.getSymbolsSuccess(symbolsData));
   } catch (error) {
-    const errorMessage = String(error) || "An unknown error occurred";
-    console.error("failed to get symbols list: ", errorMessage);
+    console.error("failed to get symbols list");
 
-    yield put(symbolsSlice.actions.getSymbolsFailure(errorMessage));
+    yield put(symbolsSlice.actions.getSymbolsFailure());
   }
 }
 

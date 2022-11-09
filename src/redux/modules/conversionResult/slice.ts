@@ -38,7 +38,7 @@ export const conversionResultSlice = createSlice({
       state.result = action.payload;
       state.isLoading = false;
     },
-    getConversionResultFailure(state, action: PayloadAction<string>) {
+    getConversionResultFailure(state) {
       state.isLoading = false;
       state.result = null;
       state.isFailed = true;
