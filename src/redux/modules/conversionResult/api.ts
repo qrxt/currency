@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from "@redux/api";
 import { getEndpoint } from "lib/getEndpoint";
 import { CurrencySymbol } from "types/currency";
 
@@ -13,7 +13,7 @@ export async function getConversionResult(
     to,
   });
 
-  return axios({ url: path, method })
+  return axiosInstance({ url: path, method })
     .then((response) => {
       console.log("axios getConversionResult response: ", response);
 

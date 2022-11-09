@@ -1,8 +1,10 @@
 import { CurrencySymbol } from "./currency";
-import { Rates } from "./rate";
+import { Rate } from "./rate";
 
 export interface TimeSeries {
   base: CurrencySymbol;
   target: CurrencySymbol;
-  rates: Rates[];
+  rates: {
+    [date: string]: Rate;
+  };
 }

@@ -13,7 +13,11 @@ export function generateRates(length: number, seriesCurrency: CurrencySymbol) {
     formatDate(getNDaysAgo(idx))
   );
 
-  return dateStrings.map((dateString) => ({
-    [dateString]: generateRate(seriesCurrency),
-  }));
+  return dateStrings.reduce(
+    (acc, dateString) => ({
+      ...acc,
+      [dateString]: generateRate(seriesCurrency),
+    }),
+    {}
+  );
 }

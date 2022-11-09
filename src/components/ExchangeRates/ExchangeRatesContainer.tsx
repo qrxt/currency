@@ -11,7 +11,7 @@ import ExchangeRates from "./ExchangeRates";
 import ExchangeRatesSkeleton from "./ExchangeRatesSkeleton";
 
 function useCurrenciesToConvert(baseCurrency: CurrencySymbol): Conversion[] {
-  const config = useConfig();
+  const { config } = useConfig();
   const priorityCurrencies = config.currencies
     .priorityCurrencies as CurrencySymbol[];
 

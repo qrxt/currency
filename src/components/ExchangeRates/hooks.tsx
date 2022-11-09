@@ -73,7 +73,7 @@ const getOptions = (dates: string[], colorMode: ColorMode): ApexOptions => ({
 });
 
 export function getChartOptions(timeseries: TimeSeries, colorMode: ColorMode) {
-  const dates = timeseries.rates.map((entry) => keys(entry)[0]);
+  const dates = keys(timeseries.rates);
 
   return getOptions(dates, colorMode);
 }
@@ -87,8 +87,7 @@ export interface ChartSeries {
 
 export function getChart(timeSeries: TimeSeries) {
   const currencyValues = values(timeSeries.rates).map((rate) => {
-    const entries = values(rate)[0];
-    const currencyValues = values(entries)[0];
+    const currencyValues = values(rate)[0];
 
     return currencyValues;
   });
