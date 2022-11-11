@@ -1,6 +1,11 @@
 {
   "currencies": {
-    "priorityCurrencies": ["USD", "RUB", "EUR"]
+    "priorityCurrencies": ["USD", "RUB", "EUR"],
+    "fallbackCurrency": "USD",
+    "currencyByLang": {
+      "ru": "RUB",
+      "en": "USD"
+    }
   },
   "network": {
     "requestUrlBase": "http://localhost:3000",

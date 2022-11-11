@@ -7,9 +7,11 @@ import {
 import { timeSeriesSlice } from "@redux/modules/timeSeries/slice";
 import { t } from "i18next";
 import useConfig from "lib/hooks/useConfig";
+import getCurrencyByLang from "lib/utils/getCurrencyByLang";
 import { includes, isEmpty, size, without, zip } from "lodash";
 import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { useTranslation } from "react-i18next";
 import { Conversion } from "types/conversion";
 import { CurrencySymbol } from "types/currency";
 import ExchangeRates from "./ExchangeRates";
@@ -34,6 +36,7 @@ function useCurrenciesToConvert(baseCurrency: CurrencySymbol): Conversion[] {
 function ExchangeRatesContainer() {
   const dispatch = useDispatch();
   const toast = useToast();
+  const { i18n } = useTranslation();
   const [baseCurrencyCookie, setBaseCurrencyCookie] = useCookies([
     "base-currency",
   ]);
@@ -60,11 +63,12 @@ function ExchangeRatesContainer() {
   }, [isTimeSeriesLoadFailed, toast]);
 
   useEffect(() => {
-    // TODO: determine by location / lang
+    const defaultCurrency = getCurrencyByLang(i18n.language);
+    console.log("$$", i18n.language);
     if (isEmpty(baseCurrencyCookie)) {
-      setBaseCurrencyCookie("base-currency", "USD");
+      setBaseCurrencyCookie("base-currency", defaultCurrency);
     }
-  }, [baseCurrencyCookie, setBaseCurrencyCookie]);
+  }, [baseCurrencyCookie, i18n.language, setBaseCurrencyCookie]);
 
   if (!timeSeries) {
     return <ExchangeRatesSkeleton />;
