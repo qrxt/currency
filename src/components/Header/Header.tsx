@@ -12,11 +12,14 @@ import {
 } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import routes from "lib/routes";
+import { useRoutes } from "lib/hooks/useRoutes";
 import { useCookies } from "react-cookie";
 import StatusBar from "components/StatusBar";
+import { useTranslation } from "react-i18next";
 
 function Header() {
+  const routes = useRoutes();
+  const { t } = useTranslation();
   const [baseCurrencyCookie] = useCookies(["base-currency"]);
   const baseCurrency = baseCurrencyCookie["base-currency"];
 
@@ -36,7 +39,7 @@ function Header() {
             <Breadcrumb fontWeight="medium" fontSize="xs">
               <BreadcrumbItem>
                 <BreadcrumbLink as={RouterLink} to="/">
-                  Pages
+                  {t("common.pages.title")}
                 </BreadcrumbLink>
               </BreadcrumbItem>
 

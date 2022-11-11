@@ -9,22 +9,28 @@ import {
   FormControl,
   FormLabel,
   useToast,
+  Select,
 } from "@chakra-ui/react";
 import Section from "components/Section";
 import { useCookies } from "react-cookie";
 import { SubmitHandler, useController, useForm } from "react-hook-form";
-import { OptionBase, GroupBase, Select } from "chakra-react-select";
+import {
+  OptionBase,
+  GroupBase,
+  Select as SelectWithSearch,
+} from "chakra-react-select";
 import { find, keys, map, upperCase } from "lodash";
 import { Symbols } from "types/currency";
 import { initialSymbols } from "@redux/modules/symbols/slice";
+import { useTranslation } from "react-i18next";
 
 interface CurrencyOption extends OptionBase {
   value: string;
   label: string;
 }
-
 interface IFormInput {
   baseCurrency: CurrencyOption;
+  language: string;
 }
 
 interface SettingsProps {
@@ -46,10 +52,11 @@ function Settings({ currencySymbols }: SettingsProps) {
   );
   const [showAll, setShowAll] = useState(false);
   const toast = useToast();
+  const { t, i18n } = useTranslation();
   const {
+    register,
     control,
     handleSubmit,
-    reset,
     formState: { isDirty },
   } = useForm<IFormInput>();
   const [baseCurrencyCookie, setBaseCurrencyCookie] = useCookies([
@@ -64,19 +71,27 @@ function Settings({ currencySymbols }: SettingsProps) {
     control,
   });
 
+  console.log(i18n.language);
   const onSubmit: SubmitHandler<IFormInput> = (data, e) => {
-    e?.preventDefault();
-    const { baseCurrency } = data;
+    const { baseCurrency, language } = data;
 
-    setBaseCurrencyCookie("base-currency", baseCurrency.value);
+    console.log(data);
 
-    reset();
-    toast({
-      title: "Base currency changed",
-      description: `New base currency is ${baseCurrency.label}`,
-      status: "success",
-      isClosable: true,
-    });
+    if (baseCurrency) {
+      setBaseCurrencyCookie("base-currency", baseCurrency.value);
+      toast({
+        title: t("baseCurrency.toast.success.title"),
+        description: t("baseCurrency.toast.success.description", {
+          currency: baseCurrency.label,
+        }),
+        status: "success",
+        isClosable: true,
+      });
+    }
+
+    if (language) {
+      i18n.changeLanguage(language);
+    }
   };
 
   const initialOption = value
@@ -91,14 +106,22 @@ function Settings({ currencySymbols }: SettingsProps) {
     <Section py={6}>
       <Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormLabel htmlFor="baseCurrency">Base currency</FormLabel>
+          <FormLabel htmlFor="baseCurrency">
+            {t("settings.form.fields.baseCurrency.label")}
+          </FormLabel>
           <FormControl>
             <Box mb={3} w={["100%", "100%", "100%", "50%"]}>
               <Flex justifyContent="space-between">
                 <Box w="65%">
-                  <Select<CurrencyOption, true, GroupBase<CurrencyOption>>
+                  <SelectWithSearch<
+                    CurrencyOption,
+                    true,
+                    GroupBase<CurrencyOption>
+                  >
                     colorScheme="purple"
-                    placeholder="Select base currency..."
+                    placeholder={t(
+                      "settings.form.fields.baseCurrency.placeholder"
+                    )}
                     ref={ref}
                     onChange={onChange}
                     onBlur={onBlur}
@@ -108,7 +131,7 @@ function Settings({ currencySymbols }: SettingsProps) {
                 </Box>
 
                 <Checkbox colorScheme="purple" onChange={handleShowAllCheckbox}>
-                  Show all
+                  {t("settings.form.fields.baseCurrency.showAll")}
                 </Checkbox>
               </Flex>
             </Box>
@@ -121,12 +144,35 @@ function Settings({ currencySymbols }: SettingsProps) {
               w={["100%", "100%", "100%", "50%"]}
             >
               <AlertIcon />
-              Currency against which conversions will be made
+              {t("settings.form.fields.baseCurrency.hint")}
             </Alert>
           </FormControl>
 
+          <FormLabel htmlFor="baseCurrency">
+            {t("settings.form.fields.language.label")}
+          </FormLabel>
+          <FormControl mb={6}>
+            <Box mb={3} w={["100%", "100%", "100%", "50%"]}>
+              <Flex justifyContent="space-between">
+                <Box w="65%">
+                  <Select
+                    colorScheme="purple"
+                    defaultValue={i18n.language || ""}
+                    {...register("language")}
+                  >
+                    <option hidden disabled value="">
+                      {t("settings.form.fields.language.placeholder")}
+                    </option>
+                    <option value="en">{t("common.languages.en")}</option>
+                    <option value="ru">{t("common.languages.ru")}</option>
+                  </Select>
+                </Box>
+              </Flex>
+            </Box>
+          </FormControl>
+
           <Button type="submit" disabled={!isDirty}>
-            Submit
+            {t("common.form.submit")}
           </Button>
         </form>
       </Box>

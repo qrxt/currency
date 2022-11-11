@@ -10,9 +10,11 @@ import {
 import { symbolsSlice } from "@redux/modules/symbols/slice";
 import { useToast } from "@chakra-ui/react";
 import SettingsSkeleton from "./SettingsSkeleton";
+import { useTranslation } from "react-i18next";
 
 function SettingsContainer() {
   const toast = useToast();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const symbols = useSelector(selectSymbols);
   const isLoading = useSelector(selectIsLoading);
@@ -22,12 +24,12 @@ function SettingsContainer() {
   useEffect(() => {
     if (isFailed) {
       toast({
-        title: "Failed to load symbols",
+        title: t("currencySymbols.toast.error"),
         status: "error",
         isClosable: true,
       });
     }
-  }, [isFailed, toast]);
+  }, [isFailed, t, toast]);
 
   const initFetch = useCallback(() => {
     if (isInitialSymbolsList) {

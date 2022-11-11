@@ -4,10 +4,17 @@ import Page from "components/Page";
 import ExchangeRatesPage from "components/pages/ExchangeRatesPage";
 import ConverterPage from "components/pages/ConverterPage";
 import SettingsPage from "components/pages/SettingsPage";
+import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const { t } = useTranslation();
+
   return (
     <Page>
+      <Helmet>
+        <title>{t("common.title")}</title>
+      </Helmet>
       <Routes>
         <Route path="/" element={<ExchangeRatesPage />} />
         <Route path="/converter" element={<ConverterPage />} />

@@ -18,5 +18,127 @@
         "method": "GET"
       }
     }
+  },
+  "translations": {
+    "en": {
+      "translation": {
+        "common": {
+          "title": "Currency Converter",
+          "pages.title": "Pages",
+          "home": "Home",
+
+          "pages.rates.name": "Rates",
+          "pages.rates.heading": "Exchange Rates",
+
+          "pages.converter.name": "Converter",
+          "pages.converter.heading": "Currency converter",
+
+          "pages.settings.name": "Settings",
+          "pages.settings.heading": "Application Settings",
+
+          "form.submit": "Submit",
+
+          "toast.error": "Failed to load data",
+
+          "languages.ru": "Russian",
+          "languages.en": "English"
+        },
+
+        "header": {
+          "baseCurrency": "Base currency"
+        },
+
+        "timeSeries": {
+          "toast.error": "Failed to load time series"
+        },
+
+        "currencySymbols": {
+          "toast.error": "Failed to load currency symbols"
+        },
+
+        "baseCurrency": {
+          "toast.success.title": "Base currency changed successfully",
+          "toast.success.description": "New base currency is {{currency}}"
+        },
+
+        "converter": {
+          "form.fields.amount.placeholder": "Enter amount",
+          "form.fields.from.placeholder": "From",
+          "form.fields.to.placeholder": "To",
+          "form.fields.swapCurrencies.aria": "Swap currencies",
+          "form.submit": "Go"
+        },
+
+        "settings": {
+          "form.fields.baseCurrency.placeholder": "Select currency",
+          "form.fields.baseCurrency.label": "Base currency",
+          "form.fields.baseCurrency.showAll": "Show all",
+          "form.fields.baseCurrency.hint": "Currency against which conversions will be made",
+
+          "form.fields.language.placeholder": "Select language",
+          "form.fields.language.label": "Language"
+        }
+      }
+    },
+    "ru": {
+      "translation": {
+        "common": {
+          "title": "Конвертор валют",
+          "pages.title": "Страницы",
+          "home": "Домой",
+
+          "pages.rates.heading": "Обменные курсы",
+          "pages.rates.name": "Курсы",
+
+          "pages.converter.name": "Конвертор",
+          "pages.converter.heading": "Конвертор валют",
+
+          "pages.settings.name": "Настройки",
+          "pages.settings.heading": "Настройки приложения",
+
+          "form.submit": "Принять",
+
+          "toast.error": "Не удалось загрузить данные",
+
+          "languages.ru": "Русский",
+          "languages.en": "Английский"
+        },
+
+        "header": {
+          "baseCurrency": "Базовая валюта"
+        },
+
+        "timeSeries": {
+          "toast.error": "Не удалось загрузить историю значений"
+        },
+
+        "currencySymbols": {
+          "toast.error": "Не удалось загрузить список валют"
+        },
+
+        "baseCurrency": {
+          "toast.success.title": "Базовая валюта успешно изменена",
+          "toast.success.description": "Новая базовая валюта теперь {{currency}}"
+        },
+
+        "converter": {
+          "form.fields.amount.placeholder": "Введите кол-во",
+          "form.fields.from.placeholder": "Из",
+          "form.fields.to.placeholder": "В",
+          "form.fields.swapCurrencies.aria": "Поменять валюты местами",
+          "form.submit": "Ок"
+        },
+
+        "settings": {
+          "form.fields.baseCurrency.placeholder": "Выберите валюту",
+          "form.fields.baseCurrency.label": "Базовая валюта",
+          "form.fields.baseCurrency.showAll": "Все",
+          "form.fields.baseCurrency.hint": "Валюта, относительно которой будут происходить конвертации",
+
+          "form.fields.language.placeholder": "Выберите язык",
+          "form.fields.language.label": "Язык"
+        }
+      }
+    }
   }
 }

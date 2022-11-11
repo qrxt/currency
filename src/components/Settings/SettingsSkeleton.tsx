@@ -4,10 +4,14 @@ import React from "react";
 
 function SettingsSkeleton() {
   return (
-    <Section h="268" py={8}>
+    <Section h="364" py={8}>
       <SkeletonText noOfLines={1} w={["45%", "45%", "80px", "80px"]} mb={3} />
       <Skeleton w={["100%", "100%", "360px", "360px"]} h="40px" mb={3} />
-      <Skeleton w={["100%", "100%", "360px", "360px"]} h="70px" mb={6} />
+      <Skeleton w={["100%", "100%", "360px", "360px"]} h="70px" mb={12} />
+
+      <SkeletonText noOfLines={1} w={["45%", "45%", "80px", "80px"]} mb={3} />
+      <Skeleton w={["100%", "100%", "360px", "360px"]} h="40px" mb={3} />
+
       <Skeleton w="85px" h="40px" />
     </Section>
   );

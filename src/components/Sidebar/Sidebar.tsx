@@ -23,12 +23,13 @@ import { css } from "@emotion/react";
 import Logo from "components/Logo";
 import { IconType } from "react-icons/lib";
 import { FiMenu as IconMenu } from "react-icons/fi";
-import routes from "lib/routes";
+import { useRoutes } from "../../lib/hooks/useRoutes";
 import { map } from "lodash";
 import { useLocation, Link as RouterLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import StatusBar from "components/StatusBar";
 import { useCookies } from "react-cookie";
+import { useTranslation } from "react-i18next";
 
 interface NavItemProps {
   text: string;
@@ -80,6 +81,7 @@ interface NavMenuProps {
 export function NavMenu(props: NavMenuProps) {
   const { onItemClick } = props;
   const { pathname } = useLocation();
+  const routes = useRoutes();
 
   return (
     <Box as={motion.div} layout>
@@ -106,8 +108,8 @@ export function NavMenu(props: NavMenuProps) {
 }
 
 function Sidebar() {
-  const { pathname } = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation();
   const [baseCurrencyCookie] = useCookies(["base-currency"]);
   const baseCurrency = baseCurrencyCookie["base-currency"];
 
@@ -159,7 +161,7 @@ function Sidebar() {
           h="100%"
           px={6}
         >
-          <Link as={RouterLink} to={"/"}>
+          <Link as={RouterLink} to={"/"} title={t("common.home")}>
             <Logo />
           </Link>
           <Hide above="630px">

@@ -5,6 +5,7 @@ import {
   selectTimeSeries,
 } from "@redux/modules/timeSeries/selectors";
 import { timeSeriesSlice } from "@redux/modules/timeSeries/slice";
+import { t } from "i18next";
 import useConfig from "lib/hooks/useConfig";
 import { includes, isEmpty, size, without, zip } from "lodash";
 import React, { useEffect } from "react";
@@ -51,7 +52,7 @@ function ExchangeRatesContainer() {
   useEffect(() => {
     if (isTimeSeriesLoadFailed) {
       toast({
-        title: "Failed to load time series",
+        title: t("timeSeries.toast.error"),
         status: "error",
         isClosable: true,
       });

@@ -20,12 +20,13 @@ function insertParams(url: string, params: QueryParams) {
 export function getEndpoint(name: string, params?: QueryParams) {
   const endpointsDict = endpoints as Record<string, Endpoint>;
   const endpoint = endpointsDict[name];
+  const urlBase = import.meta.env.VITE_URL_BASE || requestUrlBase;
 
   if (!endpoint) {
     throw new Error(`There is no endpoint with name ${name}`);
   }
 
-  const path = `${requestUrlBase}${endpoint.path}`;
+  const path = `${urlBase}${endpoint.path}`;
 
   return {
     ...endpoint,

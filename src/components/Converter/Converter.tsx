@@ -16,6 +16,7 @@ import { GroupBase, Select, SingleValue } from "chakra-react-select";
 import { CurrencySymbol, Symbols } from "types/currency";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CurrencyOption, useConverter, useCurrencyOptions } from "./hooks";
+import { useTranslation } from "react-i18next";
 interface ConverterProps {
   symbols: Symbols;
   fetchConversionResult: (
@@ -43,6 +44,7 @@ function Converter(props: ConverterProps) {
     conversionResult,
     isConversionResultLoading,
   } = props;
+  const { t } = useTranslation();
   const [amount, setAmount] = useState(0);
   const [from, setFrom] = useState<CurrencySymbol | null>(null);
   const [to, setTo] = useState<CurrencySymbol | null>(null);
@@ -104,7 +106,7 @@ function Converter(props: ConverterProps) {
                   <NumberInputField
                     textAlign="center"
                     fontSize={["1.2em", "1.2em", "1.6em", "1.6em"]}
-                    placeholder="Enter amount"
+                    placeholder={t("converter.form.fields.amount.placeholder")}
                     fontWeight="medium"
                     py={6}
                     {...register("amount", {
@@ -126,7 +128,7 @@ function Converter(props: ConverterProps) {
                 <Box w={["100%", "100%", 75, 75]} mr={3}>
                   <Select<CurrencyOption, false, GroupBase<CurrencyOption>>
                     variant="unstyled"
-                    placeholder="From"
+                    placeholder={t("converter.form.fields.from.placeholder")}
                     onChange={handleChangeCurrency(CurrencySelectSubtype.From)}
                     options={fromOptions}
                     value={fromValue}
@@ -136,7 +138,7 @@ function Converter(props: ConverterProps) {
                 <IconButton
                   onClick={toggleSwapCurrencies}
                   disabled={isSwapButtonDisabled}
-                  aria-label="Swap currencies"
+                  aria-label={t("converter.form.fields.swapCurrencies.aria")}
                   icon={<IconSwap size="100%" />}
                   w={[14, 14, 10, 10]}
                   h={[14, 14, 10, 10]}
@@ -147,7 +149,7 @@ function Converter(props: ConverterProps) {
                 <Box w={["100%", "100%", 75, 75]} mr={3} mb={[6, 6, 0, 0]}>
                   <Select<CurrencyOption, false, GroupBase<CurrencyOption>>
                     variant="unstyled"
-                    placeholder="To"
+                    placeholder={t("converter.form.fields.to.placeholder")}
                     onChange={handleChangeCurrency(CurrencySelectSubtype.To)}
                     options={toOptions}
                     value={toValue}
@@ -160,7 +162,7 @@ function Converter(props: ConverterProps) {
                   ml={[0, 0, "auto", "auto"]}
                   disabled={isSubmitButtonDisabled}
                 >
-                  Go
+                  {t("converter.form.submit")}
                 </Button>
               </Flex>
             </Box>

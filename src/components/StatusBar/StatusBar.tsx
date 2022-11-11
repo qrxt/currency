@@ -12,6 +12,7 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import Section from "components/Section";
 import { motion } from "framer-motion";
 import { CurrencySymbol } from "types/currency";
+import { t } from "i18next";
 
 interface StatusBarProps {
   baseCurrency: CurrencySymbol;
@@ -42,13 +43,10 @@ function StatusBar(props: StatusBarProps) {
   const basicCurrencyColor = useColorModeValue("black", "whiteAlpha.900");
 
   return (
-    <Section
-      // w={[145, 145, 145, 145]}
-      boxShadow={variant === "ghost" ? "none" : "md"}
-    >
+    <Section boxShadow={variant === "ghost" ? "none" : "md"}>
       <Flex alignItems="center">
         <Box mr={6}>
-          <Tooltip label="Basic currency" placement="auto-end">
+          <Tooltip label={t("header.baseCurrency")} placement="auto-end">
             <Text
               fontWeight="medium"
               color={basicCurrencyColor}
@@ -63,11 +61,7 @@ function StatusBar(props: StatusBarProps) {
             </Text>
           </Tooltip>
         </Box>
-        <Box
-          as={motion.div}
-          // whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.9 }}
-        >
+        <Box as={motion.div} whileTap={{ scale: 0.9 }}>
           <IconButton
             onClick={toggleColorMode}
             aria-label={colorModeMessage}
