@@ -27,8 +27,8 @@ function useCurrenciesToConvert(baseCurrency: CurrencySymbol): Conversion[] {
     : without(priorityCurrencies, "RUB");
 
   const conversions = zip(
-    Array(size(filteredCurrencies)).fill(baseCurrency),
-    filteredCurrencies
+    filteredCurrencies,
+    Array(size(filteredCurrencies)).fill(baseCurrency)
   );
   return conversions;
 }

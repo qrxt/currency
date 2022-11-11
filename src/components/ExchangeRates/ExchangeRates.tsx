@@ -25,7 +25,7 @@ function ExchangeRates({ series, baseCurrency }: ExchangeRatesProps) {
             <Section w={["100%", "100%", "70%", "100%"]} py={6} key={idx}>
               <Box px={4}>
                 <Heading as="h2" size="md" mb={3}>
-                  {`${baseCurrency} / ${seriesItem.target}`}
+                  {`${seriesItem.base} / ${seriesItem.target}`}
                 </Heading>
 
                 <Text>{`${baseCurrency} 1 = ${seriesItem.target} ${chartSeries.today}`}</Text>
