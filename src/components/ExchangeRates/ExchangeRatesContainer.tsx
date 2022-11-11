@@ -64,7 +64,6 @@ function ExchangeRatesContainer() {
 
   useEffect(() => {
     const defaultCurrency = getCurrencyByLang(i18n.language);
-    console.log("$$", i18n.language);
     if (isEmpty(baseCurrencyCookie)) {
       setBaseCurrencyCookie("base-currency", defaultCurrency);
     }

@@ -1,4 +1,4 @@
-import { first } from "lodash";
+import first from "lodash/first";
 import { CurrencySymbol } from "types/currency";
 import config from "../../config.json";
 

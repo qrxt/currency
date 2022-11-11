@@ -71,11 +71,8 @@ function Settings({ currencySymbols }: SettingsProps) {
     control,
   });
 
-  console.log(i18n.language);
-  const onSubmit: SubmitHandler<IFormInput> = (data, e) => {
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
     const { baseCurrency, language } = data;
-
-    console.log(data);
 
     if (baseCurrency) {
       setBaseCurrencyCookie("base-currency", baseCurrency.value);
