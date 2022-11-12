@@ -100,10 +100,13 @@ function Settings({ currencySymbols }: SettingsProps) {
   }
 
   return (
-    <Section py={6}>
+    <Section py={6} data-testid="settings-wrapper">
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormLabel htmlFor="baseCurrency">
+        <form onSubmit={handleSubmit(onSubmit)} data-testid="settings-form">
+          <FormLabel
+            htmlFor="baseCurrency"
+            data-testid="settings-form-baseCurrency-label"
+          >
             {t("settings.form.fields.baseCurrency.label")}
           </FormLabel>
           <FormControl>
@@ -115,6 +118,7 @@ function Settings({ currencySymbols }: SettingsProps) {
                     true,
                     GroupBase<CurrencyOption>
                   >
+                    aria-label="baseCurrency-select"
                     colorScheme="purple"
                     placeholder={t(
                       "settings.form.fields.baseCurrency.placeholder"
@@ -124,10 +128,16 @@ function Settings({ currencySymbols }: SettingsProps) {
                     onBlur={onBlur}
                     options={showAll ? currencyOptions : initialCurrencies}
                     value={initialOption}
+                    data-testid="settings-form-baseCurrency-select"
+                    inputId="baseCurrency"
                   />
                 </Box>
 
-                <Checkbox colorScheme="purple" onChange={handleShowAllCheckbox}>
+                <Checkbox
+                  colorScheme="purple"
+                  onChange={handleShowAllCheckbox}
+                  data-testid="settings-form-baseCurrency-showAll"
+                >
                   {t("settings.form.fields.baseCurrency.showAll")}
                 </Checkbox>
               </Flex>
@@ -139,13 +149,17 @@ function Settings({ currencySymbols }: SettingsProps) {
               colorScheme="purple"
               borderRadius="md"
               w={["100%", "100%", "100%", "50%"]}
+              data-testid="settings-form-baseCurrency-hint"
             >
               <AlertIcon />
               {t("settings.form.fields.baseCurrency.hint")}
             </Alert>
           </FormControl>
 
-          <FormLabel htmlFor="baseCurrency">
+          <FormLabel
+            htmlFor="language"
+            data-testid="settings-form-language-label"
+          >
             {t("settings.form.fields.language.label")}
           </FormLabel>
           <FormControl mb={6}>
@@ -155,20 +169,41 @@ function Settings({ currencySymbols }: SettingsProps) {
                   <Select
                     colorScheme="purple"
                     defaultValue={i18n.language || ""}
+                    id="language"
+                    data-testid="settings-form-language-select"
                     {...register("language")}
                   >
-                    <option hidden disabled value="">
+                    <option
+                      hidden
+                      disabled
+                      value=""
+                      data-testid={"settings-form-language-select-option"}
+                    >
                       {t("settings.form.fields.language.placeholder")}
                     </option>
-                    <option value="en">{t("common.languages.en")}</option>
-                    <option value="ru">{t("common.languages.ru")}</option>
+                    <option
+                      value="en"
+                      data-testid={"settings-form-language-select-option"}
+                    >
+                      {t("common.languages.en")}
+                    </option>
+                    <option
+                      value="ru"
+                      data-testid={"settings-form-language-select-option"}
+                    >
+                      {t("common.languages.ru")}
+                    </option>
                   </Select>
                 </Box>
               </Flex>
             </Box>
           </FormControl>
 
-          <Button type="submit" disabled={!isDirty}>
+          <Button
+            type="submit"
+            disabled={!isDirty}
+            data-testid="settings-form-submit"
+          >
             {t("common.form.submit")}
           </Button>
         </form>

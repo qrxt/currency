@@ -49,7 +49,11 @@ function Header() {
             </Breadcrumb>
           </Hide>
 
-          <Heading as="h1" w={["100%", "100%", "auto", "auto"]}>
+          <Heading
+            as="h1"
+            w={["100%", "100%", "auto", "auto"]}
+            data-testid="page-header"
+          >
             {heading}
           </Heading>
         </Box>

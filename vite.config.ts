@@ -4,9 +4,20 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+  const env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+
+  const envWithProcessPrefix = Object.entries(env).reduce(
+    (prev, [key, val]) => {
+      return {
+        ...prev,
+        ["process.env." + key]: `"${val}"`,
+      };
+    },
+    {}
+  );
 
   return defineConfig({
+    define: envWithProcessPrefix,
     server: {
       port: 8014,
       host: "0.0.0.0",

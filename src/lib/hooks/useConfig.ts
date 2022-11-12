@@ -1,8 +1,7 @@
 import config from "../../config.json";
 
 function useConfig() {
-  const envs = import.meta.env;
-  return { config, envs };
+  return { config };
 }
 
 export default useConfig;

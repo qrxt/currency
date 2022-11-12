@@ -9,6 +9,7 @@
   },
   "network": {
     "requestUrlBase": "http://localhost:3000",
+    "testRequestUrlBase": "http://localhost:3000",
     "endpoints": {
       "getSymbols": {
         "path": "/exchangerates_data/symbols",
