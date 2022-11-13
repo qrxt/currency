@@ -104,7 +104,12 @@ function Converter(props: ConverterProps) {
           <Box mb={3} pt={70}>
             <Flex mb={3} justifyContent="center">
               <Box w={[200, 200, 300, 300]}>
-                <NumberInput>
+                <VisuallyHidden>
+                  <FormLabel htmlFor="currency-amount">
+                    {t("converter.form.fields.amount.placeholder")}
+                  </FormLabel>
+                </VisuallyHidden>
+                <NumberInput id="currency-amount">
                   <NumberInputField
                     textAlign="center"
                     fontSize={["1.2em", "1.2em", "1.6em", "1.6em"]}
