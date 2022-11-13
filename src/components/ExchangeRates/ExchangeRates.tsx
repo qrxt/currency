@@ -16,15 +16,25 @@ function ExchangeRates({ series, baseCurrency }: ExchangeRatesProps) {
   const { colorMode } = useColorMode();
 
   return (
-    <Box>
+    <Box data-testid="rates-wrapper">
       <SimpleGrid columns={[1, 1, 1, 2]} spacing={[5, 5, 5, 10]}>
         {map(series, (seriesItem, idx) => {
           const chartSeries = getChart(seriesItem);
           const options = getChartOptions(seriesItem, colorMode);
           return (
-            <Section w={["100%", "100%", "70%", "100%"]} py={6} key={idx}>
+            <Section
+              w={["100%", "100%", "70%", "100%"]}
+              py={6}
+              key={idx}
+              data-testid="rates-item"
+            >
               <Box px={4}>
-                <Heading as="h2" size="md" mb={3}>
+                <Heading
+                  as="h2"
+                  size="md"
+                  mb={3}
+                  data-testid="rates-item-title"
+                >
                   {`${seriesItem.base} / ${seriesItem.target}`}
                 </Heading>
 

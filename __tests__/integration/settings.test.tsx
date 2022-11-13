@@ -2,7 +2,7 @@ import React from "react";
 import { act, findByText, queryByText, waitFor } from "@testing-library/react";
 import SettingsPage from "components/pages/SettingsPage";
 import { render } from "__tests__/test-utils";
-import settingsPage from "__tests__/locators/settingsPage";
+import settingsPage from "__tests__/locators/pages/settingsPage";
 import { server } from "__tests__/mocks/server";
 import select from "__tests__/locators/select";
 import toastWrapper from "__tests__/locators/toast";

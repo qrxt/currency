@@ -1,6 +1,6 @@
 import React from "react";
 import ConverterPage from "components/pages/ConverterPage";
-import converterPage from "__tests__/locators/converterPage";
+import converterPage from "__tests__/locators/pages/converterPage";
 import { server } from "__tests__/mocks/server";
 import { act, findByText, render, waitFor } from "__tests__/test-utils";
 

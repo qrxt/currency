@@ -1,5 +1,5 @@
 import { findByTestId, fireEvent, queryByTestId } from "@testing-library/react";
-import selectWithSearch from "./selectWithSearch";
+import selectWithSearch from "../selectWithSearch";
 
 export default function servicePage(nodeElement: HTMLElement) {
   return {

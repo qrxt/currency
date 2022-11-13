@@ -8,8 +8,6 @@ export default function toastWrapper(nodeElement: HTMLElement, text: string) {
         ".chakra-toast"
       ) as HTMLElement;
 
-      console.log("$$", toastElem);
-
       if (!toastElem || !queryByText(toastElem, text)) {
         return null;
       }

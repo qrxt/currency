@@ -20,6 +20,15 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
+jest.mock("react-apexcharts", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return null;
+    },
+  };
+});
+
 jest.mock("react-virtualized-auto-sizer", () => {
   const lib = jest.requireActual("react-virtualized-auto-sizer");
 
