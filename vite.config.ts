@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import analyze from "rollup-plugin-analyzer";
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
@@ -46,7 +47,9 @@ export default ({ mode }) => {
     ],
     envPrefix: ["VITE_", "TAURI_"],
     build: {
-      // Tauri supports es2021
+      rollupOptions: {
+        plugins: [analyze()],
+      },
       target: ["es2021", "chrome100", "safari13"],
     },
   });
