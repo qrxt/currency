@@ -19,7 +19,10 @@ import {
   GroupBase,
   Select as SelectWithSearch,
 } from "chakra-react-select";
-import { find, keys, map, upperCase } from "lodash";
+import find from "lodash/find";
+import keys from "lodash/keys";
+import map from "lodash/map";
+import upperCase from "lodash/upperCase";
 import { Symbols } from "types/currency";
 import { initialSymbols } from "@redux/modules/symbols/slice";
 import { useTranslation } from "react-i18next";

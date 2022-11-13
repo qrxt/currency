@@ -1,6 +1,8 @@
 import { ColorMode } from "@chakra-ui/react";
 import { ApexOptions } from "apexcharts";
-import { first, keys, values } from "lodash";
+import first from "lodash/first";
+import keys from "lodash/keys";
+import values from "lodash/values";
 import { CurrencySymbol } from "types/currency";
 import { TimeSeries } from "types/timeSeries";
 

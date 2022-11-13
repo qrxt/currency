@@ -3,7 +3,7 @@ import ExchangeRatesPage from "components/pages/ExchangeRatesPage";
 import converterPage from "__tests__/locators/pages/ratesPage";
 import { server } from "__tests__/mocks/server";
 import { render, waitFor } from "__tests__/test-utils";
-import { size } from "lodash";
+import size from "lodash/size";
 
 describe("SettingsPage", () => {
   beforeAll(() => server.listen());

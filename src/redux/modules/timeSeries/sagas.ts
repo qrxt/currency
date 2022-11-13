@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
 import { formatDate, getNDaysAgo } from "lib/utils/dates";
-import { map } from "lodash";
+import map from "lodash/map";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { TimeSeries } from "types/timeSeries";
 import api from "./api";

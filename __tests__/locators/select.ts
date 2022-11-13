@@ -3,7 +3,7 @@ import {
   fireEvent,
   getByTestId,
 } from "@testing-library/react";
-import { find } from "lodash";
+import find from "lodash/find";
 
 export default function select(nodeElement: HTMLElement, testidPrefix: string) {
   return {

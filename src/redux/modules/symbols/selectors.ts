@@ -1,6 +1,6 @@
 import { RootState } from "@redux/store";
 import { createSelector } from "@reduxjs/toolkit";
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual";
 import { initialSymbols } from "./slice";
 
 const selectSelf = (state: RootState) => state.symbols;

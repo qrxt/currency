@@ -24,7 +24,7 @@ import Logo from "components/Logo";
 import { IconType } from "react-icons/lib";
 import { FiMenu as IconMenu } from "react-icons/fi";
 import { useRoutes } from "../../lib/hooks/useRoutes";
-import { map } from "lodash";
+import map from "lodash/map";
 import { useLocation, Link as RouterLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import StatusBar from "components/StatusBar";

@@ -4,7 +4,7 @@ import Section from "components/Section";
 import Chart from "react-apexcharts";
 import { getChart, getChartOptions } from "./hooks";
 import { TimeSeries } from "types/timeSeries";
-import { map } from "lodash";
+import map from "lodash/map";
 import { CurrencySymbol } from "types/currency";
 
 interface ExchangeRatesProps {
