@@ -42,41 +42,6 @@ app.get("/exchangerates_data/convert", (req, res) => {
 
 app.get("/exchangerates_data/timeseries", (req, res) => {
   // ?start_date=2022-11-01&end_date=2022-11-07&base=USD&symbols=RUB
-
-  //   {
-  //     "success": true,
-  //     "timeseries": true,
-  //     "start_date": "2022-11-02",
-  //     "end_date": "2022-11-09",
-  //     "base": "USD",
-  //     "rates": {
-  //         "2022-11-02": {
-  //             "RUB": 61.701962
-  //         },
-  //         "2022-11-03": {
-  //             "RUB": 62.350083
-  //         },
-  //         "2022-11-04": {
-  //             "RUB": 62.000341
-  //         },
-  //         "2022-11-05": {
-  //             "RUB": 62.000341
-  //         },
-  //         "2022-11-06": {
-  //             "RUB": 62.000023
-  //         },
-  //         "2022-11-07": {
-  //             "RUB": 63.202635
-  //         },
-  //         "2022-11-08": {
-  //             "RUB": 60.974982
-  //         },
-  //         "2022-11-09": {
-  //             "RUB": 61.259021
-  //         }
-  //     }
-  // }
-
   console.log(req.originalUrl);
 
   const base = req.query.base;

@@ -10,7 +10,7 @@ const symbols = {
   },
 };
 
-export const serviceHandlers = [
+export const currencySymbolHandlers = [
   rest.get(
     `${config.network.testRequestUrlBase}/exchangerates_data/symbols`,
     (_, res, ctx) => {

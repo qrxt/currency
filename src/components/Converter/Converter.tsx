@@ -4,11 +4,13 @@ import {
   Button,
   Center,
   Flex,
+  FormLabel,
   IconButton,
   NumberInput,
   NumberInputField,
   Spinner,
   Text,
+  VisuallyHidden,
 } from "@chakra-ui/react";
 import Section from "components/Section";
 import { AiOutlineSwap as IconSwap } from "react-icons/ai";
@@ -93,7 +95,7 @@ function Converter(props: ConverterProps) {
 
   function renderForm() {
     return (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} data-testid="converter-form">
         <Flex
           alignItems="center"
           justifyContent="center"
@@ -107,6 +109,7 @@ function Converter(props: ConverterProps) {
                     textAlign="center"
                     fontSize={["1.2em", "1.2em", "1.6em", "1.6em"]}
                     placeholder={t("converter.form.fields.amount.placeholder")}
+                    data-testid="converter-form-amount-field"
                     fontWeight="medium"
                     py={6}
                     {...register("amount", {
@@ -126,7 +129,14 @@ function Converter(props: ConverterProps) {
                 flexDirection={["column", "column", "row", "row"]}
               >
                 <Box w={["100%", "100%", 75, 75]} mr={3}>
+                  <VisuallyHidden>
+                    <FormLabel htmlFor="currencyFrom">
+                      {t("converter.form.fields.from.placeholder")}
+                    </FormLabel>
+                  </VisuallyHidden>
                   <Select<CurrencyOption, false, GroupBase<CurrencyOption>>
+                    inputId="currencyFrom"
+                    aria-label={t("converter.form.fields.from.placeholder")}
                     variant="unstyled"
                     placeholder={t("converter.form.fields.from.placeholder")}
                     onChange={handleChangeCurrency(CurrencySelectSubtype.From)}
@@ -139,6 +149,7 @@ function Converter(props: ConverterProps) {
                   onClick={toggleSwapCurrencies}
                   disabled={isSwapButtonDisabled}
                   aria-label={t("converter.form.fields.swapCurrencies.aria")}
+                  data-testid="converter-form-swapCurrencies"
                   icon={<IconSwap size="100%" />}
                   w={[14, 14, 10, 10]}
                   h={[14, 14, 10, 10]}
@@ -147,7 +158,14 @@ function Converter(props: ConverterProps) {
                 />
 
                 <Box w={["100%", "100%", 75, 75]} mr={3} mb={[6, 6, 0, 0]}>
+                  <VisuallyHidden>
+                    <FormLabel htmlFor="currencyTo">
+                      {t("converter.form.fields.to.placeholder")}
+                    </FormLabel>
+                  </VisuallyHidden>
                   <Select<CurrencyOption, false, GroupBase<CurrencyOption>>
+                    inputId="currencyTo"
+                    aria-label={t("converter.form.fields.to.placeholder")}
                     variant="unstyled"
                     placeholder={t("converter.form.fields.to.placeholder")}
                     onChange={handleChangeCurrency(CurrencySelectSubtype.To)}
@@ -161,6 +179,7 @@ function Converter(props: ConverterProps) {
                   type="submit"
                   ml={[0, 0, "auto", "auto"]}
                   disabled={isSubmitButtonDisabled}
+                  data-testid="converter-form-submit"
                 >
                   {t("converter.form.submit")}
                 </Button>
@@ -173,11 +192,23 @@ function Converter(props: ConverterProps) {
                   <Spinner thickness="4px" color="purple.500" size="xl" />
                 ) : (
                   conversionResult && (
-                    <Flex alignItems="flex-end">
-                      <Text fontSize="3xl" fontWeight="medium" mr={1}>
+                    <Flex
+                      alignItems="flex-end"
+                      data-testid="converter-form-result"
+                    >
+                      <Text
+                        fontSize="3xl"
+                        fontWeight="medium"
+                        mr={1}
+                        data-testid="converter-form-result-value"
+                      >
                         {conversionResult.toFixed(2)}
                       </Text>
-                      <Text fontSize="xl" pb="1">
+                      <Text
+                        fontSize="xl"
+                        pb="1"
+                        data-testid="converter-form-result-currency"
+                      >
                         {to}
                       </Text>
                     </Flex>
@@ -192,7 +223,7 @@ function Converter(props: ConverterProps) {
   }
 
   return (
-    <Section minW={100} py={[3, 3, 6, 6]}>
+    <Section minW={100} py={[3, 3, 6, 6]} data-testid="converter-wrapper">
       {renderForm()}
     </Section>
   );

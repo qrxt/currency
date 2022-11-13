@@ -1,18 +1,12 @@
 import React from "react";
-import {
-  act,
-  findByLabelText,
-  findByText,
-  queryByText,
-  waitFor,
-} from "@testing-library/react";
+import { act, findByText, queryByText, waitFor } from "@testing-library/react";
 import SettingsPage from "components/pages/SettingsPage";
 import { render } from "__tests__/test-utils";
 import settingsPage from "__tests__/locators/settingsPage";
 import { server } from "__tests__/mocks/server";
-import selectEvent from "react-select-event";
 import select from "__tests__/locators/select";
 import toastWrapper from "__tests__/locators/toast";
+import selectWithSearch from "__tests__/locators/selectWithSearch";
 
 describe("SettingsPage", () => {
   beforeAll(() => server.listen());
@@ -54,10 +48,8 @@ describe("SettingsPage", () => {
 
     expect(queryByText(page.nodeElement, "USD")).not.toBeInTheDocument();
 
-    await selectEvent.select(
-      await findByLabelText(page.nodeElement, "Base currency"),
-      ["USD"]
-    );
+    const currencySelect = selectWithSearch(page.nodeElement, "Base currency");
+    await currencySelect.change(["USD"]);
 
     expect(await findByText(page.nodeElement, "USD")).toBeInTheDocument();
 

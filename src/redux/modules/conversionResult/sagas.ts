@@ -17,6 +17,8 @@ export function* getConversionResult({
     );
     const conversionResult = response.data;
 
+    console.log("$$");
+
     yield put(
       conversionResultSlice.actions.getConversionResultSuccess(conversionResult)
     );
