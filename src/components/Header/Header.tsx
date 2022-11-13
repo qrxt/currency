@@ -32,7 +32,13 @@ function Header() {
   `;
 
   return (
-    <Box as="header" css={headerStyles} bg={bg} pt={[3, 3, 0, 0]}>
+    <Box
+      as="header"
+      css={headerStyles}
+      bg={bg}
+      pt={[3, 3, 0, 0]}
+      data-testid="header-wrapper"
+    >
       <Flex h="100%" alignItems="center" px="6" justifyContent="space-between">
         <Box>
           <Hide below="md">

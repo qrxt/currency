@@ -43,7 +43,10 @@ function StatusBar(props: StatusBarProps) {
   const basicCurrencyColor = useColorModeValue("black", "whiteAlpha.900");
 
   return (
-    <Section boxShadow={variant === "ghost" ? "none" : "md"}>
+    <Section
+      boxShadow={variant === "ghost" ? "none" : "md"}
+      data-testid="status-bar"
+    >
       <Flex alignItems="center">
         <Box mr={6}>
           <Tooltip label={t("header.baseCurrency")} placement="auto-end">
@@ -56,6 +59,7 @@ function StatusBar(props: StatusBarProps) {
               initial="hide"
               variants={textVariants}
               key={baseCurrency}
+              data-testid="status-bar-base-currency"
             >
               {baseCurrency}
             </Text>
