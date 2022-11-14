@@ -1,8 +1,12 @@
 # Курсы валют / Конвертор 
 
-![image](https://user-images.githubusercontent.com/46269438/201679540-91bf43f1-3112-4f67-bbe3-d87bcabf937a.png)
+![logo](https://user-images.githubusercontent.com/46269438/201740288-bc39c8f0-67af-4cf9-977d-051dc37e8d2b.png)
+
+![Test](https://github.com/qrxt/currency/workflows/Test/badge.svg)
 
 Использует ApiLayer.
+
+![image](https://user-images.githubusercontent.com/46269438/201679540-91bf43f1-3112-4f67-bbe3-d87bcabf937a.png)
 
 ## Установка
 
