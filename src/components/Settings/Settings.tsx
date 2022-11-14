@@ -26,6 +26,7 @@ import upperCase from "lodash/upperCase";
 import { Symbols } from "types/currency";
 import { initialSymbols } from "@redux/modules/symbols/slice";
 import { useTranslation } from "react-i18next";
+import getLangBase from "lib/utils/getLangBase";
 
 interface CurrencyOption extends OptionBase {
   value: string;
@@ -171,7 +172,7 @@ function Settings({ currencySymbols }: SettingsProps) {
                 <Box w="65%">
                   <Select
                     colorScheme="purple"
-                    defaultValue={i18n.language || ""}
+                    defaultValue={getLangBase(i18n.language) || ""}
                     id="language"
                     data-testid="settings-form-language-select"
                     {...register("language")}
