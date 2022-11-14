@@ -5,14 +5,12 @@ import Chart from "react-apexcharts";
 import { getChart, getChartOptions } from "./hooks";
 import { TimeSeries } from "types/timeSeries";
 import map from "lodash/map";
-import { CurrencySymbol } from "types/currency";
 
 interface ExchangeRatesProps {
   series: TimeSeries[];
-  baseCurrency: CurrencySymbol;
 }
 
-function ExchangeRates({ series, baseCurrency }: ExchangeRatesProps) {
+function ExchangeRates({ series }: ExchangeRatesProps) {
   const { colorMode } = useColorMode();
 
   return (
@@ -38,7 +36,7 @@ function ExchangeRates({ series, baseCurrency }: ExchangeRatesProps) {
                   {`${seriesItem.base} / ${seriesItem.target}`}
                 </Heading>
 
-                <Text>{`${baseCurrency} 1 = ${seriesItem.target} ${chartSeries.today}`}</Text>
+                <Text>{`${seriesItem.base} 1 = ${seriesItem.target} ${chartSeries.today}`}</Text>
               </Box>
 
               <Box overflow="hidden">

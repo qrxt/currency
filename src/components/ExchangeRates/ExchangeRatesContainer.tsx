@@ -77,7 +77,7 @@ function ExchangeRatesContainer() {
     return <ExchangeRatesSkeleton />;
   }
 
-  return <ExchangeRates series={timeSeries} baseCurrency={baseCurrency} />;
+  return <ExchangeRates series={timeSeries} />;
 }
 
 export default ExchangeRatesContainer;
