@@ -23,6 +23,6 @@ jobs:
       - name: Install dependencies
         run: npm i
       - name: Run build
-        run: make build
+        run: npm run build
       - name: Run Tests
         run: make test
