@@ -23,7 +23,6 @@ describe("Header", () => {
     const header = headerLocator(result.baseElement);
 
     expect(await header.wrapper()).toBeInTheDocument();
-    result.debug();
     expect(await header.baseCurrency()).toHaveTextContent("USD");
   });
 });
