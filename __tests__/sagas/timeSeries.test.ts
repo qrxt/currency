@@ -7,15 +7,17 @@ import {
 import api from "@redux/modules/timeSeries/api";
 import { createAxiosResponse } from "../helpers/api";
 import { CurrencySymbol } from "types/currency";
+import { formatDate, getNDaysAgo } from "lib/utils/dates";
 
 describe("Time Series saga test", () => {
+  const today = new Date();
   const timeSeriesPayload: GetTimeSeriesPayload = {
     conversions: [["USD", "RUB"]],
   };
 
   const timeSeriesRequestParams = {
-    startDate: "2022-11-07",
-    endDate: "2022-11-14",
+    startDate: formatDate(getNDaysAgo(7, today)),
+    endDate: formatDate(today),
     base: "USD" as CurrencySymbol,
     symbol: "RUB" as CurrencySymbol,
   };
