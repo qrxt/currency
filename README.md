@@ -41,3 +41,7 @@ Vercel - [Тык](https://currency-nine.vercel.app/)
 
 ![rates4](https://user-images.githubusercontent.com/46269438/201679213-2f02fff3-bf03-4ece-b512-f5d1451e4ddb.gif)
 ![converter](https://user-images.githubusercontent.com/46269438/201679219-05eea58f-c677-4335-99de-d0b727ca2efa.gif)
+
+### Задание
+
+[Тык](https://github.com/appbooster/test-assignments/blob/master/tasks/frontend.md)
