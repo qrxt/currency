@@ -1,5 +1,6 @@
 import { axiosInstance } from "@redux/api";
 import { getEndpoint } from "lib/getEndpoint";
+import Logger from "lib/logger";
 import { CurrencySymbol } from "types/currency";
 
 export async function getConversionResult(
@@ -15,7 +16,7 @@ export async function getConversionResult(
 
   return axiosInstance({ url: path, method })
     .then((response) => {
-      console.log("axios getConversionResult response: ", response);
+      Logger.log("axios getConversionResult response: ", response);
 
       return response;
     })

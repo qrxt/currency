@@ -1,5 +1,6 @@
 import { axiosInstance } from "@redux/api";
 import { getEndpoint } from "lib/getEndpoint";
+import Logger from "lib/logger";
 import { CurrencySymbol } from "types/currency";
 
 export async function getCurrencyTimeSeries(
@@ -23,7 +24,7 @@ export async function getCurrencyTimeSeries(
 
   return axiosInstance({ url: path, method })
     .then((response) => {
-      console.log("axios getCurrencyTimeSeries response: ", response);
+      Logger.log("axios getCurrencyTimeSeries response: ", response);
 
       return {
         ...response,
